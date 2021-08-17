@@ -2,6 +2,10 @@
 const Product = require('../models/product');
 const User = require('../models/user');
 const nodemailer = require('nodemailer');
+var easyinvoice = require('easyinvoice');
+var fs = require('fs');
+var dateFormat = require('dateformat');
+
 
 const createProduct =  (req, res) => {
 const data= req.body;
@@ -138,15 +142,86 @@ const getUser= (req,res)=>{
        }
    })
 }
+const PayPdf= async(user,sum,cart)=>{
+    var date=dateFormat(new Date(), "dd-mm-yyyy");
 
+
+    
+    var data = {
+        "documentTitle": "קבלה", //Defaults to INVOICE
+        //"locale": "de-DE", //Defaults to en-US, used for number formatting (see docs)
+        "currency": "ILS", //See documentation 'Locales and Currency' for more info
+        "taxNotation": "gst", //or gst
+        "marginTop": 25,
+        "marginRight": 25,
+        "marginLeft": 25,
+        "marginBottom": 25,
+        // "logo": fs.readFileSync('./logocamp.png', 'base64'), //or base64
+        "background": fs.readFileSync('./logocamp1.png', 'base64'), //or base64 //img or pdf
+        "sender": {
+            "company": "קייטנת עושים גלים",
+            "address": "המרכבה 20 ",
+            "zip": "",
+            "city": "חולון",
+            "country": "ישראל"
+            //"custom1": "custom value 1",
+            //"custom2": "custom value 2",
+            //"custom3": "custom value 3"
+        },
+        "client": {
+               "company": user.name,
+               "address": user.email,
+               "zip": "",
+               "city": "",
+               "country": ""
+            //"custom2": "custom value 2",
+            //"custom3": "custom value 3"
+        },
+        "invoiceNumber": "2021.0001",
+        "invoiceDate": date,
+        "products": cart,
+        // "bottomNotice": "Kindly pay your invoice within 15 days.",
+        //Used for translating the headers to your preferred language
+        //Defaults to English. Below example is translated to Dutch
+        "translate": { 
+            "invoiceNumber": "מס הזמנה",
+            "invoiceDate": "תאריך הזמנה",
+            "products": "מוצרים", 
+            "quantity": "כמות", 
+            "price": "מחיר",
+            "subtotal": "סה״כ",
+            "total": "סה״כ" 
+        }
+    };
+    
+    //Create your invoice! Easy!
+
+    const result = await easyinvoice.createInvoice(data);                       
+ return await fs.writeFileSync("invoice.pdf", result.pdf, 'base64')
+
+    // easyinvoice.createInvoice(data, function (result) {
+    //     //The response will contain a base64 encoded PDF file
+    //     console.log(result.pdf);
+    // });
+}
 const Pay= async(req,res)=>{
     const id= req.params.id;
     var cart=[Object];
     const user= await User.findById(id).populate('cart');  
     const email=user.email;
     cart=user.cart;
+    let cartProduct=[];
     const sum= await total(user.id);
-
+cart.forEach(c=>{
+    cartProduct.push(
+    {
+        "quantity": "1",
+        "description": c.name,
+        "tax": 0,
+        "price": c.price
+    }
+    )
+})
     // var transform = {"tag":"table", "children":[
     //     {"tag":"tbody","children":[
     //         {"tag":"tr","children":[
@@ -165,36 +240,42 @@ const Pay= async(req,res)=>{
         '<h3> סה"כ לתשלום </h3>' +sum
 		;
      // console.log(d);
-    // let mailTransporter = nodemailer.createTransport({
-    //     service: 'gmail',
-    //     auth: {
-    //         user: 'summercampWeb123@gmail.com',
-    //         pass: 'S.123456789'
-    //     }
-    // });
-
-    // let mailDetails = {
-    //     from: 'summercampWeb123@gmail.com',
-    //     to: user.mail,
-    //     subject: 'קייטנת עושים גלים- קבלה',
-    //     html:d
-    // };
-    // mailTransporter.sendMail(mailDetails, function(err, data) {
-    //     if(err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log('Email sent successfully');
-    //     }
-    // });
-    // const userTemp= User.findByIdAndUpdate(id,{
-    //     $unset: {
-    //         cart: 1
-    //     }
-    // },false).then(()=> res.json({status:200}))
-    // .catch((e)=>{
-    //     res.json({status:400})
-    // })
+    let mailTransporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'summercampWeb123@gmail.com',
+            pass: 'S.123456789'
+        }
+    });
+await PayPdf(user,sum,cartProduct);
+    let mailDetails = {
+        from: 'summercampWeb123@gmail.com',
+        to: 'assarafnir@gmail.com',
+        subject: 'קייטנת עושים גלים- קבלה',
+        html:emailText,
+        attachments: [
+            {
+              filename: "invoice.pdf",
+              path: "./invoice.pdf",
+            }]
+    };
+    mailTransporter.sendMail(mailDetails, function(err, data) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log('Email sent successfully');
+        }
+    });
+    const userTemp= User.findByIdAndUpdate(id,{
+        $unset: {
+            cart: 1
+        }
+    },false).then(()=> res.json({status:200}))
+    .catch((e)=>{
+        res.json({status:400})
+    })
 }
+
 
 module.exports = {
     createProduct,
@@ -206,5 +287,6 @@ module.exports = {
     getUser,
     RemoveFromCart,
     Pay,
+    PayPdf,
     totalPrice
 }
