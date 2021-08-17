@@ -1,6 +1,6 @@
 const express = require('express');
 const {createUser,login,getAllUsers,updateUser,deleteUser} = require('../controllers/userController');
-const {createChild,getAllChilds,deleteChild,updateChild} = require('../controllers/childController');
+const {createChild,getAllChilds,deleteChild,updateChild,Payment} = require('../controllers/childController');
 const {createEvent,getAllEvents,deleteEvent,deleteDay} = require('../controllers/eventController');
 const {createProduct,getAllProducts,deleteProd,updateProduct,addToCart,getUser,RemoveFromCart,Pay,totalPrice}= require('../controllers/productController');
 const {createFood,getAllFoods,deleteFood,deleteMenu} = require('../controllers/menuController');
@@ -21,6 +21,8 @@ router.post('/child/:id', createChild);//adding new child to camp **** ok
 router.get('/children', getAllChilds);//get all children ***** ok
 router.delete('/child/:Uid/:Cid', deleteChild);//delet child from user list ***** ok
 router.post('/childId/:idChild', updateChild);// update child ***** ok
+router.get('/childPay/:id',Payment);
+
 
 //event routes
 router.post('/event', createEvent);//create new Events for day ***** ok
