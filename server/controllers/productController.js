@@ -155,7 +155,7 @@ const PayPdf= async(user,sum,cart)=>{
         "marginTop": 25,
         "marginRight": 25,
         "marginLeft": 25,
-        "marginBottom": 27,
+        "marginBottom": 25,
         // "logo": fs.readFileSync('./logocamp.png', 'base64'), //or base64
         "background": fs.readFileSync('./logocamp1.png', 'base64'), //or base64 //img or pdf
         "sender": {
