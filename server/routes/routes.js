@@ -45,7 +45,7 @@ router.delete('/menu/:Fid/:Did', deleteFood);// delete food in menu ***** ok
 router.delete('/menu/:id',deleteMenu); // delete all day menu ***** ok
 
 //galery routes
-router.post('/photo', addPhoto);//add photo to day *****ok
+router.post('/photo', addPhoto);//add photo to day ********ok
 router.get('/photo', getGalery); // get all photos by days ***** ok
 router.delete('/photo/:Gid/:Pid', deletePhoto); //delete photo ***** ok
 router.delete('/photo/:id',deleteGalery); //delete the all day *****ok
