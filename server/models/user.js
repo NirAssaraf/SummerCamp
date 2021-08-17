@@ -43,6 +43,7 @@ const User = new Schema({
         required: true
     },
     salt: String,
+    tokenID:String,
     role:{
         type:Number,
         trime:true
@@ -51,8 +52,7 @@ const User = new Schema({
         data:String,
         default:''
 
-    }
-
+    },
 
 },{timestamps:true});
 

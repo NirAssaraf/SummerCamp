@@ -38,7 +38,7 @@ router.post('/product/:id', updateProduct);
 router.get('/product/:uId/:pId', addToCart);// add product to user cart ***** ok
 router.get('/price/:ID', totalPrice);// get total cart ***** ok
 router.delete('/product/:Uid/:Pid',RemoveFromCart);// remove product from cart ***** ok
-router.get('/cart/:id',Pay);
+router.get('/cart/:id',Pay);// pay for protucts and clear the cart *****ok
 
 //menu routes
 router.post('/menu', createFood);//create new food for menu ***** ok
