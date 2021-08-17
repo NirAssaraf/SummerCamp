@@ -23,7 +23,7 @@ const createFood =  (req, res) => {
                                 } 
                             }
                         }).exec((err,docs)=>{
-    
+                            return getAllFoods(req,res);
                         })
                     })
                 })
@@ -46,7 +46,7 @@ const createFood =  (req, res) => {
                                     } 
                                 }
                             }).exec((err,docs)=>{
-        
+                                return getAllFoods(req,res);
                             })
                         })
                     })
@@ -54,11 +54,7 @@ const createFood =  (req, res) => {
                  })
     
              }
-        }).then(()=>res.json({status:200})
-        )
-        .catch((e)=>{
-            res.json({status:400})
-        })    
+        })   
     }
  const getAllFoods =  (req, res) => {
 

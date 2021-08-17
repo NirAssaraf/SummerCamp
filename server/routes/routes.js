@@ -34,7 +34,7 @@ router.delete('/event/:id',deleteDay);//delete all day ***** ok
 router.post('/product', createProduct);//create new product ***** ok
 router.get('/product', getAllProducts);// get all products ***** ok
 router.delete('/product/:id', deleteProd);// delete product ***** ok
-router.post('/product/:id', updateProduct);
+router.post('/product/:id', updateProduct);//update product ***** ok
 router.get('/product/:uId/:pId', addToCart);// add product to user cart ***** ok
 router.get('/price/:ID', totalPrice);// get total cart ***** ok
 router.delete('/product/:Uid/:Pid',RemoveFromCart);// remove product from cart ***** ok

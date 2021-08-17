@@ -22,6 +22,17 @@ const email= req.body.email;
         }
     });
 }
+const getUser=  (req,res,token)=>{
+    const email= req.params.email
+ return User.findOne({email}).populate('childs').exec((err, docs)=>{
+       if(err){
+           console.log("not ok");
+           return null;
+       }else{
+          return res.json({token:token,user:docs});;
+       }
+   })
+}
 const login=async (req, res) => {
     const {email,password}=req.params;
      return await User.findOne({email}).then((user)=>{ 
@@ -40,15 +51,13 @@ const login=async (req, res) => {
      }
      const token =jwt.sign({_id: user._id},process.env.JWT_SECRET,{expiresIn:'1d'});
     
-        console.log(process.env.JWT_SECRET);
         res.cookie('token',token,{expiresIn:'1d'});
         // return  res.json({
         //   status:200,
         //     token:token,user : u
         // });
-        return getUser(req,res).then((user)=>{
-            res.json({token:token, user:user})
-        })
+       return getUser(req,res,token);
+
      });   
  };
 
@@ -58,17 +67,7 @@ const login=async (req, res) => {
     })
  }
 
- const getUser= (req,res)=>{
-     const email= req.params.email
-    const user= User.findOne({email}).populate('childs').exec((err, docs)=>{
-        if(err){
-            console.log("not ok");
-            return null
-        }else{
-           return docs
-        }
-    })
- }
+
  
 
  const updateUser=  (req,res)=>{

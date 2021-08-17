@@ -22,7 +22,7 @@ const User = new Schema({
     },
     type:{
         type:String,
-        default:"parent"
+        default:"1"
     },
       childs: [
         {

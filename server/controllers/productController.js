@@ -238,7 +238,7 @@ cart.forEach(c=>{
 await PayPdf(user,total,cartProduct);
     let mailDetails = {
         from: 'summercampWeb123@gmail.com',
-        to: 'assarafnir@gmail.com',
+        to: user.email,
         subject: 'קייטנת עושים גלים- קבלה',
         html:emailText,
         attachments: [
