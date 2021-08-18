@@ -78,22 +78,35 @@ const addToCart=  (req,res)=>{
 
 const RemoveFromCart=  (req,res)=>{
     const id= req.params.Uid;
-    const ProductID=req.params.Pid
+    const ProductID=req.params.Pid;
+    const index= req.params.index;
+    console.log(index);
   User.findById(id).then((user)=>{
-
+    console.log(ProductID);
       if(user!=null){
         User.findByIdAndUpdate(id,{
-            $pullAll: {
-                cart: [ProductID]
+            $unset: {
+                ["cart."+index]: 1
             }
-        },{new:true}).then(()=> res.json({status:200}))
+        },{new:true}).then(()=>{ 
+            temp(id)
+            res.json({status:200})})
         .catch((e)=>{
+            console.log(e);
             res.json({status:400})
         })
       }
   }).catch((e)=>{
         res.json({status:404})
     })
+}
+
+const temp= (id)=>{
+        User.findByIdAndUpdate(id,{
+            $pullAll: {
+               cart:[null]
+            }
+        },{new:true})
 }
 const total= async (id)=>{
    // const id=req.params.id;

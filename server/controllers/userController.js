@@ -24,7 +24,7 @@ const email= req.body.email;
 }
 const getUser=  (req,res,token)=>{
     const email= req.params.email
- return User.findOne({email}).populate('childs').exec((err, docs)=>{
+ return User.findOne({email}).populate('childs').populate('cart').exec((err, docs)=>{
        if(err){
            console.log("not ok");
            return null;

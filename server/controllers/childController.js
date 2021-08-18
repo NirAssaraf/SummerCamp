@@ -132,7 +132,10 @@ const PayPdf= async(user,sum,cart)=>{
         },
         "client": {
                "company": user.name,
-               "address": user.email
+               "address": user.email,
+               "zip": "",
+               "city": "חולון",
+               "country": "ישראל"
         },
         "invoiceNumber": "2021.0001",
         "invoiceDate": date,

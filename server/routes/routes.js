@@ -21,7 +21,7 @@ router.post('/child/:id', createChild);//adding new child to camp **** ok
 router.get('/children', getAllChilds);//get all children ***** ok
 router.delete('/child/:Uid/:Cid', deleteChild);//delet child from user list ***** ok
 router.post('/childId/:idChild', updateChild);// update child ***** ok
-router.get('/childPay/:id',Payment);
+router.get('/childPay/:id',Payment);// pay for adding a child to camp
 
 
 //event routes
@@ -37,7 +37,7 @@ router.delete('/product/:id', deleteProd);// delete product ***** ok
 router.post('/product/:id', updateProduct);//update product ***** ok
 router.get('/product/:uId/:pId', addToCart);// add product to user cart ***** ok
 router.get('/price/:ID', totalPrice);// get total cart ***** ok
-router.delete('/product/:Uid/:Pid',RemoveFromCart);// remove product from cart ***** ok
+router.delete('/product/:Uid/:Pid/:index',RemoveFromCart);// remove product from cart ***** ok
 router.get('/cart/:id',Pay);// pay for protucts and clear the cart *****ok
 
 //menu routes
