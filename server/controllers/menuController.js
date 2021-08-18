@@ -7,9 +7,12 @@ const createFood =  (req, res) => {
     const date= req.body.date;
     var foods=[Object];
     foods= req.body.foods;
-                Menu.findOne({date}).then((menu)=>{
+                Menu.findOne({date}).then(  (menu)=>{
                     if(menu != null){
-                        foods.forEach((one)=>{
+                      
+                     foods.forEach((one,index)=>{
+                        console.log(index);
+
                             var food = new Food({
                                 discription:one.discription,
                                 category:one.category
@@ -23,16 +26,20 @@ const createFood =  (req, res) => {
                                 } 
                             }
                         }).exec((err,docs)=>{
-                            return getAllFoods(req,res);
+                            console.log(index);
+                             if(index==foods.length-1)
+                             return getAllFoods(req,res)
+
                         })
                     })
                 })
+               
                     }else{
                         const temp= new Menu({
                             date:date
                         });
-                        temp.save().then((menu)=>{
-                            foods.forEach((one)=>{
+                        temp.save().then( async (menu)=>{
+                            await foods.forEach((one,index)=>{
                                 var food = new Food({
                                     discription:one.discription,
                                     category:one.category
@@ -46,7 +53,11 @@ const createFood =  (req, res) => {
                                     } 
                                 }
                             }).exec((err,docs)=>{
-                                return getAllFoods(req,res);
+                                console.log(index);
+                                if(index==foods.length-1){
+                                    console.log(index);
+                                return getAllFoods(req,res)
+                                }
                             })
                         })
                     })
@@ -54,7 +65,7 @@ const createFood =  (req, res) => {
                  })
     
              }
-        })   
+        }) 
     }
  const getAllFoods =  (req, res) => {
 
