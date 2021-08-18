@@ -78,22 +78,35 @@ const addToCart=  (req,res)=>{
 
 const RemoveFromCart=  (req,res)=>{
     const id= req.params.Uid;
-    const ProductID=req.params.Pid
+    const ProductID=req.params.Pid;
+    const index= req.params.index;
+    console.log(index);
   User.findById(id).then((user)=>{
-
+    console.log(ProductID);
       if(user!=null){
         User.findByIdAndUpdate(id,{
-            $pullAll: {
-                cart: [ProductID]
+            $unset: {
+                ["cart."+index]: 1
             }
-        },{new:true}).then(()=> res.json({status:200}))
+        },{new:true}).then(()=>{ 
+            temp(id)
+            res.json({status:200})})
         .catch((e)=>{
+            console.log(e);
             res.json({status:400})
         })
       }
   }).catch((e)=>{
         res.json({status:404})
     })
+}
+
+const temp= (id)=>{
+        User.findByIdAndUpdate(id,{
+            $pullAll: {
+               cart:[null]
+            }
+        },{new:true})
 }
 const total= async (id)=>{
    // const id=req.params.id;
@@ -143,20 +156,16 @@ const getUser= (req,res)=>{
    })
 }
 const PayPdf= async(user,sum,cart)=>{
-    var date=dateFormat(new Date(), "dd-mm-yyyy");
-
-
-    
+    var date=dateFormat(new Date(), "dd-mm-yyyy");  
     var data = {
         "documentTitle": "קבלה", //Defaults to INVOICE
         //"locale": "de-DE", //Defaults to en-US, used for number formatting (see docs)
         "currency": "ILS", //See documentation 'Locales and Currency' for more info
-        "taxNotation": "gst", //or gst
+        "taxNotation": "מע״מ", //or gst
         "marginTop": 25,
         "marginRight": 25,
         "marginLeft": 25,
         "marginBottom": 25,
-        // "logo": fs.readFileSync('./logocamp.png', 'base64'), //or base64
         "background": fs.readFileSync('./logocamp1.png', 'base64'), //or base64 //img or pdf
         "sender": {
             "company": "קייטנת עושים גלים",
@@ -164,9 +173,6 @@ const PayPdf= async(user,sum,cart)=>{
             "zip": "",
             "city": "חולון",
             "country": "ישראל"
-            //"custom1": "custom value 1",
-            //"custom2": "custom value 2",
-            //"custom3": "custom value 3"
         },
         "client": {
                "company": user.name,
@@ -174,8 +180,7 @@ const PayPdf= async(user,sum,cart)=>{
                "zip": "",
                "city": "",
                "country": ""
-            //"custom2": "custom value 2",
-            //"custom3": "custom value 3"
+
         },
         "invoiceNumber": "2021.0001",
         "invoiceDate": date,
@@ -190,6 +195,8 @@ const PayPdf= async(user,sum,cart)=>{
             "quantity": "כמות", 
             "price": "מחיר",
             "subtotal": "סה״כ",
+            "vat":"מע״מ",
+            "gst":"מע״מ",
             "total": "סה״כ" 
         }
     };
@@ -199,10 +206,6 @@ const PayPdf= async(user,sum,cart)=>{
     const result = await easyinvoice.createInvoice(data);                       
  return await fs.writeFileSync("invoice.pdf", result.pdf, 'base64')
 
-    // easyinvoice.createInvoice(data, function (result) {
-    //     //The response will contain a base64 encoded PDF file
-    //     console.log(result.pdf);
-    // });
 }
 const Pay= async(req,res)=>{
     const id= req.params.id;
@@ -211,46 +214,44 @@ const Pay= async(req,res)=>{
     const email=user.email;
     cart=user.cart;
     let cartProduct=[];
-    const sum= await total(user.id);
+    //let sum= await total(id);
+    var total=0;
+    var count=Number;
+    //let sum=0;
 cart.forEach(c=>{
     cartProduct.push(
     {
         "quantity": "1",
         "description": c.name,
-        "tax": 0,
+        "tax": 17,
         "price": c.price
     }
     )
+    count = parseFloat(c.price);
+    total=total+count;
 })
-    // var transform = {"tag":"table", "children":[
-    //     {"tag":"tbody","children":[
-    //         {"tag":"tr","children":[
-    //             {"tag":"td","html":"${name}"},
-    //             {"tag":"td","html":"${age}"}
-    //         ]}
-    //     ]}
-    // ]};
-
-    // $('#target_div').html(cart.transform(data,transform));
-
-
-
+    var totalTex=total+(total*0.17);
     let emailText= 
-		'<h1>שלום,</h1>'+user.name+'<br>'+
-        '<h3> סה"כ לתשלום </h3>' +sum
+		'<h3 dir="rtl">שלום, '+user.name+'</h3>'+
+        '<h3 dir="rtl"> מצורפת קבלה על תשלום בסך כולל של : ' +totalTex +' &#8362;</h3>'
 		;
-     // console.log(d);
     let mailTransporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: 'summercampWeb123@gmail.com',
-            pass: 'S.123456789'
+            pass: 'S.123456789' 
+        },
+        tls:{
+            rejectUnauthorized:false
         }
     });
-await PayPdf(user,sum,cartProduct);
+
+ 
+
+await PayPdf(user,total,cartProduct);
     let mailDetails = {
         from: 'summercampWeb123@gmail.com',
-        to: 'assarafnir@gmail.com',
+        to: user.email,
         subject: 'קייטנת עושים גלים- קבלה',
         html:emailText,
         attachments: [
@@ -259,6 +260,7 @@ await PayPdf(user,sum,cartProduct);
               path: "./invoice.pdf",
             }]
     };
+
     mailTransporter.sendMail(mailDetails, function(err, data) {
         if(err) {
             console.log(err);

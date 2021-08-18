@@ -24,7 +24,8 @@ const email= req.body.email;
 }
 const getUser=  (req,res,token)=>{
     const email= req.params.email
- return User.findOne({email}).populate('childs').exec((err, docs)=>{
+
+ return User.findOne({email}).populate('childs').populate('cart').exec((err, docs)=>{
        if(err){
            console.log("not ok");
            return null;
@@ -51,7 +52,6 @@ const login=async (req, res) => {
      }
      const token =jwt.sign({_id: user._id},process.env.JWT_SECRET,{expiresIn:'1d'});
     
-        console.log(process.env.JWT_SECRET);
         res.cookie('token',token,{expiresIn:'1d'});
         // return  res.json({
         //   status:200,

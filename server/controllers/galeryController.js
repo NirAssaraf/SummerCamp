@@ -20,7 +20,7 @@ const addPhoto =  (req, res) => {
                                 } 
                             }
                         }).exec((err,docs)=>{
-    
+                            return getGalery(req,res);
                         })
                     })
                 })
@@ -42,7 +42,7 @@ const addPhoto =  (req, res) => {
                                     } 
                                 }
                             }).exec((err,docs)=>{
-        
+                                return getGalery(req,res);
                             })
                         })
                     })
@@ -50,11 +50,7 @@ const addPhoto =  (req, res) => {
                  })
     
              }
-        }).then(()=>res.json({status:200})
-        )
-        .catch((e)=>{
-            res.json({status:400})
-        })    
+        })   
     }
 const getGalery =  (req, res) => {
         Galery.find({}).populate('photos').exec((err, docs)=>{
