@@ -11,8 +11,6 @@ const createFood =  (req, res) => {
                     if(menu != null){
                       
                      foods.forEach((one,index)=>{
-                        console.log(index);
-
                             var food = new Food({
                                 discription:one.discription,
                                 category:one.category
@@ -26,7 +24,6 @@ const createFood =  (req, res) => {
                                 } 
                             }
                         }).exec((err,docs)=>{
-                            console.log(index);
                              if(index==foods.length-1)
                              return getAllFoods(req,res)
 
@@ -53,9 +50,7 @@ const createFood =  (req, res) => {
                                     } 
                                 }
                             }).exec((err,docs)=>{
-                                console.log(index);
                                 if(index==foods.length-1){
-                                    console.log(index);
                                 return getAllFoods(req,res)
                                 }
                             })
@@ -93,7 +88,7 @@ const createFood =  (req, res) => {
             $pullAll: {
                 foods: [FoodID]
             }
-        },{new:true}).then(()=> res.json({status:200}))
+        },{new:true}).then((m)=> res.json({status:200,menu:m}))
         .catch((e)=>{
             res.json({status:400})
         })
@@ -104,8 +99,8 @@ const createFood =  (req, res) => {
 }
 const deleteMenu=  (req,res)=>{
     Menu.findById(req.params.id).then((menu)=>{
-      menu.remove().then(()=>{
-          res.json({status:200})
+      menu.remove().then((m)=>{
+          res.json({status:200, menu:m})
       })
     })
       .catch((e)=>{

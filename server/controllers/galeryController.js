@@ -7,7 +7,7 @@ const addPhoto =  (req, res) => {
     photos= req.body.photos;
                 Galery.findOne({date}).then((gal)=>{
                     if(gal != null){
-                        photos.forEach((one)=>{
+                        photos.forEach((one,index)=>{
                             var photo = new Photo({
                                 url:one
                             });
@@ -20,7 +20,9 @@ const addPhoto =  (req, res) => {
                                 } 
                             }
                         }).exec((err,docs)=>{
+                            if(index==photos.length-1){
                             return getGalery(req,res);
+                            }
                         })
                     })
                 })
@@ -28,8 +30,8 @@ const addPhoto =  (req, res) => {
                         const temp= new Galery({
                             date:date
                         });
-                        temp.save().then((gal)=>{
-                            photos.forEach((one)=>{
+                        temp.save().then(async (gal)=>{
+                          await  photos.forEach((one,index)=>{
                                 var photo = new Photo({
                                     url:one
                                 });
@@ -42,7 +44,9 @@ const addPhoto =  (req, res) => {
                                     } 
                                 }
                             }).exec((err,docs)=>{
+                                if(index==photos.length-1){
                                 return getGalery(req,res);
+                                }
                             })
                         })
                     })
@@ -73,7 +77,7 @@ const deletePhoto=  (req,res)=>{
             $pullAll: {
                 photos: [photoID]
             }
-        },{new:true}).then(()=> res.json({status:200}))
+        },{new:true}).then((G)=> res.json({status:200,galery:G}))
         .catch((e)=>{
             res.json({status:400})
         })

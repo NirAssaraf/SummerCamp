@@ -47,7 +47,7 @@ const updateProduct=  (req,res)=>{
         price:data.price,
         status:data.status,
         url:data.url
-        },{new:true}).then(()=> res.json({status:200}))
+        },{new:true}).then((P)=> res.json({status:200, product:P}))
     .catch((e)=>{
         res.json({status:404})
     })
@@ -90,7 +90,7 @@ const RemoveFromCart= async (req,res)=>{
             }
         },{new:true}).then(async ()=>{ 
            const n= await temp(id,res);
-           if(n)  return res.json({status:200});
+           if(n)  return getUser(req,res);
             return res.json({status:400});
         })
         .catch((e)=>{
@@ -273,7 +273,7 @@ await PayPdf(user,total,cartProduct);
         $unset: {
             cart: 1
         }
-    },false).then(()=> res.json({status:200}))
+    },false).then((u)=> res.json({status:200, user:u}))
     .catch((e)=>{
         res.json({status:400})
     })

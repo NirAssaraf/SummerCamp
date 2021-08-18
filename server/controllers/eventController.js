@@ -8,7 +8,7 @@ var events=[Object];
 events= req.body.events;
             Day.findOne({date}).then((day)=>{
                 if(day != null){
-                    events.forEach((one)=>{
+                    events.forEach((one,index)=>{
                         var event = new Event({
                             discription:one.discription,
                             startTime:one.startTime,
@@ -23,7 +23,9 @@ events= req.body.events;
                             } 
                         }
                     }).exec((err,docs)=>{
+                        if(index==events.length-1){
                         return getAllEvents(req,res);
+                        }
                     })
                 })
             })
@@ -31,8 +33,8 @@ events= req.body.events;
                     const day= new Day({
                         date:date
                     });
-                    day.save().then((day)=>{
-                        events.forEach((one)=>{
+                    day.save().then(async (day)=>{
+                      await  events.forEach((one,index)=>{
                             var event = new Event({
                                 discription:one.discription,
                                 startTime:one.startTime,
@@ -47,7 +49,9 @@ events= req.body.events;
                                 } 
                             }
                         }).exec((err,docs)=>{
+                            if(index==events.length-1){
                             return getAllEvents(req,res);
+                            }
                         })
                     })
                 })
@@ -69,7 +73,7 @@ events= req.body.events;
             $pullAll: {
                 events: [eventID]
             }
-        },{new:true}).then(()=> res.json({status:200}))
+        },{new:true}).then((D)=> res.json({status:200,day:D}))
         .catch((e)=>{
             res.json({status:400})
         })
@@ -80,8 +84,8 @@ events= req.body.events;
 }
 const deleteDay=  (req,res)=>{
     Day.findById(req.params.id).then((day)=>{
-      day.remove().then(()=>{
-          res.json({status:200})
+      day.remove().then((D)=>{
+          res.json({status:200,day:D})
       })
     })
       .catch((e)=>{
