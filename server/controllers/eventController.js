@@ -93,7 +93,7 @@ const deleteDay=  (req,res)=>{
 
     var myCurrentDate=new Date();
     var myPastDate=new Date(myCurrentDate);
-        myPastDate.setDate(myPastDate.getDate()-1);
+        myPastDate.setDate(myPastDate.getDate()-100);
     Day.find({ "date" : { $gt: myPastDate } } ).populate('events').exec((err, docs)=>{
                 if(err){
                     console.log("not ok");
