@@ -76,23 +76,24 @@ const addToCart=  (req,res)=>{
  
 }
 
-const RemoveFromCart=  (req,res)=>{
+const RemoveFromCart= async (req,res)=>{
     const id= req.params.Uid;
+   
+
     const ProductID=req.params.Pid;
     const index= req.params.index;
-    console.log(index);
-  User.findById(id).then((user)=>{
-    console.log(ProductID);
+    User.findById(id).then((user)=>{
       if(user!=null){
         User.findByIdAndUpdate(id,{
             $unset: {
                 ["cart."+index]: 1
             }
-        },{new:true}).then(()=>{ 
-            temp(id)
-            res.json({status:200})})
+        },{new:true}).then(async ()=>{ 
+           const n= await temp(id,res);
+           if(n)  return res.json({status:200});
+            return res.json({status:400});
+        })
         .catch((e)=>{
-            console.log(e);
             res.json({status:400})
         })
       }
@@ -101,12 +102,12 @@ const RemoveFromCart=  (req,res)=>{
     })
 }
 
-const temp= (id)=>{
-        User.findByIdAndUpdate(id,{
-            $pullAll: {
-               cart:[null]
+const temp= (id,res)=>{
+      return User.findByIdAndUpdate(id,{
+            $pull: {
+               cart:null
             }
-        },{new:true})
+        },{new:true}).then(()=>  true).catch(()=> false)
 }
 const total= async (id)=>{
    // const id=req.params.id;

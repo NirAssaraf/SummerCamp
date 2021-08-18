@@ -1,0 +1,52 @@
+#pric-div{
+    /* width: 50%; */
+    display: flex;
+    margin-left: 10px;
+    margin-top: 15px;
+}
+/* *{
+    direction: ltr;
+} */
+#pric-1{
+    margin-right: 10px;
+    width: 100%;
+}
+.price-lable{
+    margin-top: -2px;
+    z-index: 10px;
+ 
+    background-color: white;
+}
+#pay{
+    margin-right: 0px;
+    padding-left: 15px;
+    padding-right: 20px;
+    border-radius: 20px;
+    color: black;
+    border: 2px #4998B7 solid;
+    background-color: white;
+    font-size: 18px;
+    margin-right: 22px;
+    margin-bottom: 15px;
+
+margin-top: 20px;
+width: 90%;
+    font-family: 'Alef', sans-serif;
+}
+#pric-2{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+#txt{
+    padding: 0;
+}
+#pric-txt{
+    padding-top: 10px;
+}
+/* #pric-img{
+    width: 40px;
+} */
