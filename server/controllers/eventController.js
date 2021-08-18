@@ -23,7 +23,7 @@ events= req.body.events;
                             } 
                         }
                     }).exec((err,docs)=>{
-
+                        return getAllEvents(req,res);
                     })
                 })
             })
@@ -47,7 +47,7 @@ events= req.body.events;
                                 } 
                             }
                         }).exec((err,docs)=>{
-    
+                            return getAllEvents(req,res);
                         })
                     })
                 })
@@ -55,13 +55,7 @@ events= req.body.events;
                     })
 
                 }
-            }).then(()=>res.json({status:200})
-            )
-            .catch((e)=>{
-                res.json({status:400})
             })
-
-
 
 }
 
@@ -99,13 +93,16 @@ const deleteDay=  (req,res)=>{
 
     var myCurrentDate=new Date();
     var myPastDate=new Date(myCurrentDate);
-        myPastDate.setDate(myPastDate.getDate()-1);
+        myPastDate.setDate(myPastDate.getDate()-100);
     Day.find({ "date" : { $gt: myPastDate } } ).populate('events').exec((err, docs)=>{
                 if(err){
                     console.log("not ok");
                     return res.json({status: 404})
                 }else{
                     docs.sort((a,b)=>a.date-b.date);
+                    docs.forEach((e)=>{
+                        e.events.sort((a,b)=>a.startTime-b.startTime)
+                    });
                    return res.json({status:200, day:docs})
                 }
             });  

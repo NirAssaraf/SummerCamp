@@ -1,7 +1,6 @@
 'use strict';
-const { populate } = require('../models/user');
 const User = require('../models/user');
-
+const jwt=require('jsonwebtoken');
 const createUser =  (req, res) => {
 const email= req.body.email;
     User.findOne({email}).then((user)=>{
@@ -23,6 +22,17 @@ const email= req.body.email;
         }
     });
 }
+const getUser=  (req,res,token)=>{
+    const email= req.params.email
+ return User.findOne({email}).populate('childs').exec((err, docs)=>{
+       if(err){
+           console.log("not ok");
+           return null;
+       }else{
+          return res.json({token:token,user:docs});;
+       }
+   })
+}
 const login=async (req, res) => {
     const {email,password}=req.params;
      return await User.findOne({email}).then((user)=>{ 
@@ -39,10 +49,17 @@ const login=async (req, res) => {
            message:'Email or password dose not match'
        });
      }
-       return getUser(req,res);
+     const token =jwt.sign({_id: user._id},process.env.JWT_SECRET,{expiresIn:'1d'});
+    
+        console.log(process.env.JWT_SECRET);
+        res.cookie('token',token,{expiresIn:'1d'});
+        // return  res.json({
+        //   status:200,
+        //     token:token,user : u
+        // });
+       return getUser(req,res,token);
 
-     });
-     
+     });   
  };
 
  const getAllUsers= (req,res)=>{
@@ -51,17 +68,7 @@ const login=async (req, res) => {
     })
  }
 
- const getUser= (req,res)=>{
-     const email= req.params.email
-    const user= User.findOne({email}).populate('childs').exec((err, docs)=>{
-        if(err){
-            console.log("not ok");
-            return res.json({status: 404})
-        }else{
-           return res.json({status:200, user:docs})
-        }
-    })
- }
+
  
 
  const updateUser=  (req,res)=>{
