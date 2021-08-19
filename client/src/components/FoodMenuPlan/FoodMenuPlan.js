@@ -69,13 +69,14 @@ this.cleanDateSelect=this.cleanDateSelect.bind(this);
 </div>
 <div className='all-menu'>
 { this.props.menuEvent.map((item,index)=>{
+  if(item.foods.length===0) return '';
             if(this.state.startDate!==''){
               const dateState=format(new Date(this.state.startDate), 'dd/MM/yy')
               const dateItem=format(new Date(item.date), 'dd/MM/yy')
            
                    if(dateState===dateItem)
-                   return <FoodMenuEvent day={item} />
-             }else  return <FoodMenuEvent day={item} />
+                   return <FoodMenuEvent day={item} updateMenuEvent={this.props.updateMenuEvent}/>
+             }else  return <FoodMenuEvent day={item} updateMenuEvent={this.props.updateMenuEvent} />
         
 
         })}

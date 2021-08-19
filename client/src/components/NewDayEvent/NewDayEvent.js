@@ -21,6 +21,7 @@ import axios from 'axios';
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
 import es from 'date-fns/locale/es';
+import { isAuth } from '../../actions/auth';
 registerLocale('es', es)
 export default class NewDayEvent extends Component {
   constructor(props, context) {
@@ -170,7 +171,7 @@ this.setState({ exit: true });
 
 
   render() {
-    if(this.props.user.type!=='0'||this.props.user.type!=='4')
+    if(isAuth().type!=='0'&&isAuth().type!=='4')
     return <Redirect to={'/'}/>;
     if (this.state.exit)
     return <Redirect to={{pathname:'/DailyPlan' ,update:true}} />;;

@@ -77,7 +77,8 @@ const deletePhoto=  (req,res)=>{
             $pullAll: {
                 photos: [photoID]
             }
-        },{new:true}).then((G)=> res.json({status:200,galery:G}))
+        },{new:true}).then((G)=> 
+        getGalery(req,res)        )
         .catch((e)=>{
             res.json({status:400})
         })
@@ -90,7 +91,7 @@ const deletePhoto=  (req,res)=>{
 const deleteGalery=  (req,res)=>{
     Galery.findById(req.params.id).then((gal)=>{
       gal.remove().then(()=>{
-          res.json({status:200})
+        getGalery(req,res);
       })
     })
       .catch((e)=>{

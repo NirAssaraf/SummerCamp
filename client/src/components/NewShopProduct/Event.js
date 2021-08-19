@@ -54,6 +54,8 @@ this.addCart=this.addCart.bind(this);
   return
   }
   this.setState({alert:true})
+  this.props.setTotal(1);
+
   this.props.updateUser();
 
     })
@@ -68,7 +70,7 @@ this.addCart=this.addCart.bind(this);
 if(res.data.status===404){
 return
 }
-this.props.updateUser();
+this.props.updateShopProduct(res.data);
 this.setState({delete:true})
 
 
@@ -85,7 +87,7 @@ this.setState({delete:true})
       if(this.state.delete) return '';
     return (
 
-      <div className='event-product'  dir="rtl">
+      <div className='event-product-e'  >
         
         <img className='product-img'src={this.props.product.url} />
         <div className='product-details'>
@@ -110,7 +112,7 @@ this.setState({delete:true})
             </IconButton>
           }>
         <AlertTitle  id='success-alert-title'>הפריט נוסף  </AlertTitle>
-        למעבר לסל — <strong>לחץ כאן!</strong>
+        למעבר לסל — <a href='/shopCart'><strong>לחץ כאן!</strong></a>
       </Alert></div>):''}
 
 

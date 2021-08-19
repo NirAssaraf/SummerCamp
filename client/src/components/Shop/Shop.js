@@ -20,12 +20,14 @@ export default class Shop extends Component {
        this.state={
         ShopProducts:[],
         newProduct:false,
+        total:isAuth().cart.length
       
 
        }
     
 this.handleClickAddProduct=this.handleClickAddProduct.bind(this);
 
+this.setTotal=this.setTotal.bind(this);
 
 
     }
@@ -35,17 +37,19 @@ this.handleClickAddProduct=this.handleClickAddProduct.bind(this);
        this.setState({newProduct:true})
     };
   
-   
-    componentDidMount(){
-      axios.get(Config.getServerPath()+'product')
-      .then(res => {
-        this.setState({ShopProducts:res.data})
+   setTotal(number){
+     this.setState({total:this.state.total+number})
+   }
+    // componentDidMount(){
+    //   axios.get(Config.getServerPath()+'product')
+    //   .then(res => {
+    //     this.setState({ShopProducts:res.data})
   
-      })
-    }
+    //   })
+    // }
 
       render() {
-        if(this.props.user===null){
+        if(isAuth()===null){
           return <Redirect to={'/'}/>;
         }
        if(this.state.newProduct)
@@ -53,18 +57,17 @@ this.handleClickAddProduct=this.handleClickAddProduct.bind(this);
     return (
       
     <div >
-<UserDashboardNav user={this.props.user}/>
+<UserDashboardNav user={this.props.user} total={this.state.total}/>
 <div className='daily-plan'>
 <p className='shop-titles'>חנות מוצרים</p>
 
 {(isAuth().type=='0'||isAuth().type=='3')?<button onClick={this.handleClickAddProduct} className='DailyPlan-add-btn'>הוסף מוצר חדש</button>:''}
 
 
-<div className='all-days'>
+<div className='all-product'>
 
-          {        console.log(this.state.ShopProducts)
-}
-         <ShopProducts products={this.state.ShopProducts} child={false} user={this.props.user} updateUser={this.props.updateUser}/>
+    
+         <ShopProducts products={this.props.shopProduct} child={false} user={this.props.user} updateUser={this.props.updateUser} setTotal={this.setTotal} updateShopProduct={this.props.updateShopProduct}/>
 
        
 </div>

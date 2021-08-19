@@ -88,7 +88,10 @@ const createFood =  (req, res) => {
             $pullAll: {
                 foods: [FoodID]
             }
-        },{new:true}).then((m)=> res.json({status:200,menu:m}))
+        },{new:true}).then((m)=>
+        getAllFoods(req,res)
+        //  res.json({status:200,menu:m})
+         )
         .catch((e)=>{
             res.json({status:400})
         })
@@ -100,7 +103,9 @@ const createFood =  (req, res) => {
 const deleteMenu=  (req,res)=>{
     Menu.findById(req.params.id).then((menu)=>{
       menu.remove().then((m)=>{
-          res.json({status:200, menu:m})
+        getAllFoods(req,res)
+
+        //   res.json({status:200, menu:m})
       })
     })
       .catch((e)=>{

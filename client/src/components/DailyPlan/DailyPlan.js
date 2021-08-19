@@ -79,15 +79,15 @@ this.cleanDateSelect=this.cleanDateSelect.bind(this);
 
 <div className='all-day'>
 { this.props.dayEvent.map((item,index)=>{
-  console.log(item.date);
-  console.log(this.state.startDate);
+     if(item.events.length===0) return '';
+
   if(this.state.startDate!==''){
    const dateState=format(new Date(this.state.startDate), 'dd/MM/yy')
    const dateItem=format(new Date(item.date), 'dd/MM/yy')
 
         if(dateState===dateItem)
-          return <DayEvent key={index} day={item} />
-  }else  return <DayEvent key={index} day={item} />
+          return <DayEvent key={index} day={item} updateDayEvent={this.props.updateDayEvent}/>
+  }else  return <DayEvent key={index} day={item} updateDayEvent={this.props.updateDayEvent} />
 
         })}
 </div>

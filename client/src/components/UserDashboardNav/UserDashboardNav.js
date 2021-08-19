@@ -134,7 +134,6 @@ getMenu() {
 />
 }
 
-cartSize=isAuth().cart.length;
 
 
       render() {
@@ -165,7 +164,8 @@ cartSize=isAuth().cart.length;
       </div >
       <p className='user-welcome-dash'>  {this.props.user.name}</p>
 <div id='Dashboard-tool' >
-    {this.props.user.type==='1'?<Button disabled={this.props.ShopCart} onClick={()=>this.setState({goCart:true})} className='shopcart-btn' id='Dashboard-tool-btn' ><span   id='Dashboard-tool-btn' class="iconify" data-icon="foundation:shopping-cart" data-inline="false" ></span><div className='dot' ><p className='dotp' >{this.cartSize}</p></div></Button>:''}
+  {console.log(this.props.total)}
+    {this.props.user.type==='1'?<Button disabled={this.props.ShopCart} onClick={()=>this.setState({goCart:true})} className='shopcart-btn' id='Dashboard-tool-btn' ><span   id='Dashboard-tool-btn' class="iconify" data-icon="foundation:shopping-cart" data-inline="false" ></span><div className='dot' ><p className='dotp' >{this.props.total!=undefined?this.props.total:isAuth().cart.length}</p></div></Button>:''}
     </div>
   <Button onClick={this.logout} id='Dashboard-logout-btn'><span id='Dashboard-logout-btn-icon'class="iconify" data-icon="ri:user-shared-fill" data-inline="false" ></span></Button>
 

@@ -73,13 +73,14 @@ this.setState({showMenu:!this.state.showMenu})
 </div>
 <div className='all-photo'>
 { this.props.galleryEvent.map((item,index)=>{
+    if(item.photos.length===0) return '';
                 if(this.state.startDate!==''){
                   const dateState=format(new Date(this.state.startDate), 'dd/MM/yy')
                   const dateItem=format(new Date(item.date), 'dd/MM/yy')
                
                        if(dateState===dateItem)
-                              return <GalleryEvent  key={index} day={item} setShowMenu={this.setShowMenu}/>
-                 }else       return <GalleryEvent key={index}  day={item} setShowMenu={this.setShowMenu} />
+                              return <GalleryEvent  key={index} day={item} setShowMenu={this.setShowMenu} updateGalleryEvent={this.props.updateGalleryEvent}/>
+                 }else       return <GalleryEvent key={index}  day={item} setShowMenu={this.setShowMenu} updateGalleryEvent={this.props.updateGalleryEvent} />
     
 
         })}

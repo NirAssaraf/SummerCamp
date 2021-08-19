@@ -60,10 +60,13 @@ deleteEvent(){
 if(res.data.status===404){
 return
 }
+this.props.updateDayEvent(res.data.day)
+
 this.setState({delete:true})
 
   })
   .catch(() => {}   );
+  console.log('delete - dayEvent')
 }
 
 getTime(time){

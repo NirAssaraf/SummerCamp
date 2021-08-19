@@ -49,16 +49,7 @@ this.handleChangeSelectList=this.handleChangeSelectList.bind(this);
       if(isAuth().type!='0') 
       this.setState({showList:20});
 
-      axios.get(Config.getServerPath()+'users')
-      .then(res => {
-        this.setState({Users:res.data})
-  
-      })
-      axios.get(Config.getServerPath()+'children')
-      .then(res => {
-        this.setState({children:res.data})
-  
-      })
+   
     }
     handleChangeSelectList(event){
       this.setState({showList:event.target.value});
@@ -80,11 +71,9 @@ this.handleChangeSelectList=this.handleChangeSelectList.bind(this);
 
 
       render() {
-        if(this.props.user===null){
-          if(!this.props.updateUser())
-            //  return <Redirect to={'/'}/>;
-            return '';
-        }
+        if(this.props.user===null)
+             return <Redirect to={'/'}/>;
+        
      
     return (
       
@@ -139,14 +128,14 @@ this.handleChangeSelectList=this.handleChangeSelectList.bind(this);
       ):''}
         </div>
         <br/>
-        {this.state.Users.length===0?(<p>אין משתמשים</p>):''}
-       {this.state.showList==10?( this.state.Users.map((item,index)=>{
+        {this.props.users.length===0?(<p>אין משתמשים</p>):''}
+       {this.state.showList==10?( this.props.users.map((item,index)=>{
           if(this.state.userType===''||item.type===this.state.userType)
-          return <Users user={item} />
+          return <Users user={item} updateUsers={this.props.updateUsers}/>
         })
         ):(
-         this.state.children.map((item,index)=>{
-          return <Child child={item} />
+         this.props.children.map((item,index)=>{
+          return <Child child={item}/>
         })
 )}
 

@@ -118,21 +118,18 @@ export default class ChildRegistration extends Component {
       photoUrl:this.state.childImage
    
   };
-  console.log(this.state.child._id)
     axios.post(Config.getServerPath()+'childId/'+this.state.child._id,Data)
     .then(res => {
       if(res.data.status===400){//הילד קיים
       this.setState({error:"המייל כבר קיים"})
       return
       } 
-      console.log(res.data)
+      console.log(this.props.updateUser())
 
-    
         this.setState({ exit: true });
 
           })
           .catch(() => {}   );
-          console.log('send')
         
       
 
@@ -214,10 +211,7 @@ this.setState({pay:true})
                   this.setState({error:"המייל כבר קיים"})
                   return
                   } 
-                  console.log(res.data)
-
-                  this.props.setUser(res.data.user)
-                  console.log(res.data.user)
+                  this.props.updateUser();
                     this.setState({ exit: true });
 
                       })

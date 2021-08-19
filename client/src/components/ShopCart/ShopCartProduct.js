@@ -57,6 +57,7 @@ if(res.data.status!=200){
 return
 }
 this.props.getTotal();
+this.props.setTotal();
 this.props.updateUser();
 this.setState({delete:true})
 

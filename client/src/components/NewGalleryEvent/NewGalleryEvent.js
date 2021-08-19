@@ -135,7 +135,7 @@ this.setState({ exit: true });
 
 
   render() {
-    if(this.props.user.type!=='0'||this.props.user.type!=='2')
+    if(this.props.user.type!=='0'&&this.props.user.type!=='2')
     return <Redirect to={'/'}/>;
     if (this.state.exit)
       return <Redirect to={'/GalleryPlan'} />;

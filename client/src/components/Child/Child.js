@@ -34,7 +34,6 @@ export default class Child extends Component {
     
 this.handleClick=this.handleClick.bind(this);
 this.handleChangeSelect=this.handleChangeSelect.bind(this);
-this.updateUser=this.updateUser.bind(this);
 this.deleteChild=this.deleteChild.bind(this);
 this.openEdit=this.openEdit.bind(this);
 this.closeEdit=this.closeEdit.bind(this);
@@ -50,6 +49,8 @@ this.closeEdit=this.closeEdit.bind(this);
   if(res.data.status===404){
   return
   }
+  this.props.updateUser();
+
   this.setState({delete:true})
   
       })
@@ -76,25 +77,7 @@ console.log('delete child')
       this.setState({edit:false})
     }
   
-    updateUser(){
-
-      const postData = {
-        type: this.state.userType.trim(),
-     
-    };
-      axios.post(Config.getServerPath()+'user/'+this.props.user._id,postData)
-      .then(res => {
-  if(res.data.status==='faild'){
-  return
-  }
-  this.setState({saveButoon:false});
-
-        // this.props.setUser(res.data.user)
-  
-      })
-      .catch(() => {}   );
-console.log('update user')
-    }
+   
 
       render() {
         // if(this.props.user===null)
@@ -118,7 +101,7 @@ console.log('update user')
        <p>דרך הגעה : {this.props.child.wayHome}</p>
        <p> קשיים חברתיים : {this.props.child.SD}</p>
 
-      {isAuth().type==='0'||isAuth().type==='1'? <button  onClick={this.deleteChild} className='delete'><span class="iconify" data-icon="eva:person-delete-fill" data-inline="false"></span></button>:''}
+      {isAuth().type==='1'? <button  onClick={this.deleteChild} className='delete'><span class="iconify" data-icon="eva:person-delete-fill" data-inline="false"></span></button>:''}
       {isAuth().type==='0'||isAuth().type==='1'?  <button onClick={this.openEdit} className='update-child'><span class="iconify" data-icon="fa-solid:user-edit" data-inline="false" ></span></button>:''}
 
        </div>

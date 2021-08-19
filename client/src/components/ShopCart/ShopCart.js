@@ -27,17 +27,18 @@ export default class ShopCart extends Component {
        this.state={
         products:[],
         totalPrice:null,
-        Payment:false
+        Payment:false,
+        total:isAuth().cart.length
        
 
        }
     
 this.handleClick=this.handleClick.bind(this);
 this.handleChangeSelect=this.handleChangeSelect.bind(this);
-this.updateUser=this.updateUser.bind(this);
-this.deleteDay=this.deleteDay.bind(this);
+
 this.getTotal=this.getTotal.bind(this);
 this.handlePay=this.handlePay.bind(this);
+this.setTotal=this.setTotal.bind(this);
 
 
 
@@ -53,7 +54,8 @@ this.handlePay=this.handlePay.bind(this);
 
   }
   handlePay(){
-console.log('pay!!!')
+    this.props.updateUser();
+
   }
   getTotal(){
     console.log(this.props.user._id)
@@ -70,19 +72,7 @@ this.setState({totalPrice:res.data.sum})
     })
     .catch(() => {}   );
   }
-  deleteDay(){
-   
-      axios.delete(Config.getServerPath()+'event/'+this.props.day._id)
-      .then(res => {
-  if(res.data.status===404){
-  return
-  }
-  this.setState({delete:true})
   
-      })
-      .catch(() => {}   );
-console.log('delete user')
-    }
      handleClick = (event) => {
        this.setState({toggle:!this.state.toggle})
     };
@@ -97,26 +87,10 @@ console.log('delete user')
 
     }
    
-    updateUser(){
-
-      const postData = {
-        type: this.state.userType.trim(),
-     
-    };
-      axios.post(Config.getServerPath()+'user/'+this.props.user._id,postData)
-      .then(res => {
-  if(res.data.status==='faild'){
-  return
-  }
-  this.setState({saveButoon:false});
-
-        // this.props.setUser(res.data.user)
-  
-      })
-      .catch(() => {}   );
-console.log('update user')
+    
+    setTotal(){
+      this.setState({total:this.state.total-1})
     }
-
       render() {
        
         if(this.props.user===null){
@@ -125,7 +99,7 @@ console.log('update user')
      if(this.state.delete) return '';
     return (
       <div>
-        <UserDashboardNav user={this.props.user} ShopCart={true}/>
+        <UserDashboardNav user={this.props.user} ShopCart={true} total={this.state.total}/>
         {/* {this.props.user!=null?this.setState({products: this.props.user.cart}):''} */}
     <div  className='cart'>
      {/* <button className='user-btn' onClick={this.handleClick}>{this.date}</button> */}
@@ -133,9 +107,10 @@ console.log('update user')
 
     {/* <div className='event-details'> */}
        {/* <div style={{ position:'relative'}}> */}
-<p className='cart-titles'>הפריטים שלי</p>
+       {!this.state.Payment?(<><p className='cart-titles'>הפריטים שלי</p>
+
       { this.state.products.map((item,index)=>{
-          return  <ShopCartProduct product={item} user={this.props.user} getTotal={this.getTotal} updateUser={this.props.updateUser} index={index}/>
+          return  <ShopCartProduct product={item} user={this.props.user} getTotal={this.getTotal} updateUser={this.props.updateUser} setTotal={this.setTotal} index={index}/>
 
         })}
       {this.state.totalPrice!=0?(<> <div className='cart-total'>
@@ -143,14 +118,13 @@ console.log('update user')
 <p className='cart-total-price'> {this.state.totalPrice} ₪</p>
 
 </div>
-{/* <Button  onClick={()=>this.setState({Payment:true})} id='cart-payment' >לתשלום</Button> */}
-      
-      {this.state.Payment?<div className='payment-table'><PaymentForm price={this.state.totalPrice} user={this.props.user} handleAddChild={this.handlePay}/></div>:<Button  onClick={()=>this.setState({Payment:true})} id='cart-payment' >לתשלום</Button>
-}
+<Button  onClick={()=>this.setState({Payment:true})} id='cart-payment' >לתשלום</Button> 
 </>):<div className='cart-no-product'>
   <p >לא נמצאו פרטים </p>
   <a href='/shop'>למעבר לחנות</a>
   </div>} 
+  </>):     
+     (<div className='payment-table'><PaymentForm price={this.state.totalPrice} updateUser={this.props.updateUser} user={this.props.user} handleAddChild={this.handlePay}/></div>)}
        {/* </div> */}
 
      {/* </div> */}

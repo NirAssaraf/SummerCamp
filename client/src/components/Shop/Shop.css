@@ -18,10 +18,12 @@ margin-bottom: 20px;
     font-family: 'Alef', sans-serif;
 
 }
-.all-days{
+.all-product{
     position: relative;
-    top: 60px;
-    left: 35px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 50px;
+  
 }
 .daily-plan{
     position: absolute;

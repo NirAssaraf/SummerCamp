@@ -45,6 +45,7 @@ this.deleteUser=this.deleteUser.bind(this);
   if(res.data.status===404){
   return
   }
+  this.props.updateUsers();
   this.setState({delete:true})
   
       })
@@ -76,9 +77,8 @@ console.log('delete user')
   if(res.data.status==='faild'){
   return
   }
+  this.props.updateUsers();
   this.setState({saveButoon:false});
-
-        // this.props.setUser(res.data.user)
   
       })
       .catch(() => {}   );

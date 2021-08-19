@@ -73,7 +73,10 @@ events= req.body.events;
             $pullAll: {
                 events: [eventID]
             }
-        },{new:true}).then((D)=> res.json({status:200,day:D}))
+        },{new:true}).then((D)=> {
+getAllEvents(req,res)
+            // res.json({status:200,day:D})
+        })
         .catch((e)=>{
             res.json({status:400})
         })
@@ -85,7 +88,8 @@ events= req.body.events;
 const deleteDay=  (req,res)=>{
     Day.findById(req.params.id).then((day)=>{
       day.remove().then((D)=>{
-          res.json({status:200,day:D})
+          getAllEvents(req,res);
+        //   res.json({status:200,day:D})
       })
     })
       .catch((e)=>{

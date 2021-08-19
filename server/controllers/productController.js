@@ -32,7 +32,8 @@ const data= req.body;
  const deleteProd=  (req,res)=>{
     Product.findById(req.params.id).then((pro)=>{
       pro.remove().then(()=>{
-          res.json({status:200})
+        getAllProducts(req,res)
+        //   res.json({status:200})
       })
     })
       .catch((e)=>{
@@ -47,7 +48,9 @@ const updateProduct=  (req,res)=>{
         price:data.price,
         status:data.status,
         url:data.url
-        },{new:true}).then((P)=> res.json({status:200, product:P}))
+        },{new:true}).then((P)=>
+        getAllProducts(req,res)
+        )
     .catch((e)=>{
         res.json({status:404})
     })

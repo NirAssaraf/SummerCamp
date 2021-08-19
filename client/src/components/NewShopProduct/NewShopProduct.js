@@ -95,8 +95,8 @@ export default class NewShopProduct extends Component {
       return
       } 
 
-this.props.updateUser();    
-        this.setState({ exit: true });
+      this.props.updateShopProduct(res.data)
+      this.setState({ exit: true });
 
           })
           .catch(() => {}   );
@@ -120,6 +120,7 @@ if(res.data.status===400){
   console.log('error')
 return
 }
+this.props.updateShopProduct(res.data)
 this.setState({ exit: true });
 
 
@@ -195,7 +196,7 @@ this.setState({ exit: true });
 
 
   render() {
-    if(this.props.user.type!=='0'||this.props.user.type!=='3')
+    if(this.props.user.type!=='0'&&this.props.user.type!=='3')
     return <Redirect to={'/'}/>;
     if (this.state.exit)
       return <Redirect to={'/shop'} />;

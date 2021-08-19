@@ -27,76 +27,12 @@ export default class ShopProducts extends Component {
 
        }
     
-this.handleClick=this.handleClick.bind(this);
-this.handleChangeSelect=this.handleChangeSelect.bind(this);
-this.updateUser=this.updateUser.bind(this);
-this.deleteDay=this.deleteDay.bind(this);
+
 
 
 
     }
-    componentDidMount(){
-      this.setState({products:this.props.products})
-      // let items=[];
-      // let url='https://media.terminalx.com/pub/media/catalog/product/cache/92af6b9c945798a7e3b64d91033084b3/z/0/z050540022-11625141185_1.jpg';
-      // let name='אופניים'
-      // let price='12.0'
-      // items.push({url,name,price})
-      // this.setState({products:items})
-
-     
-      // this.setState({event:sort})
-
-    }
-  // date=format(new Date(this.props.day.date), 'dd/MM/yy')
-
-
-  deleteDay(){
-   
-      axios.delete(Config.getServerPath()+'event/'+this.props.day._id)
-      .then(res => {
-  if(res.data.status===404){
-  return
-  }
-  this.setState({delete:true})
-  
-      })
-      .catch(() => {}   );
-console.log('delete user')
-    }
-     handleClick = (event) => {
-       this.setState({toggle:!this.state.toggle})
-    };
-  
-    handleChangeSelect(event){
-      if(event.target.value==this.props.user.type)
-      this.setState({saveButoon:false});
-      else this.setState({saveButoon:true});
-
-      this.setState({userType:event.target.value});
-
-
-    }
-   
-    updateUser(){
-
-      const postData = {
-        type: this.state.userType.trim(),
-     
-    };
-      axios.post(Config.getServerPath()+'user/'+this.props.user._id,postData)
-      .then(res => {
-  if(res.data.status==='faild'){
-  return
-  }
-  this.setState({saveButoon:false});
-
-        // this.props.setUser(res.data.user)
-  
-      })
-      .catch(() => {}   );
-console.log('update user')
-    }
+ 
 
       render() {
       
@@ -106,11 +42,11 @@ console.log('update user')
   
 
 
-    <div className='products-details'>
+    <div className='products-details-e'>
        {/* <div style={{ position:'relative'}}> */}
 
       { this.props.products.map((item,index)=>{
-          return  <Event product={item} user={this.props.user} updateUser={this.props.updateUser} />
+          return  <Event product={item} user={this.props.user} setTotal={this.props.setTotal} updateUser={this.props.updateUser} updateShopProduct={this.props.updateShopProduct}/>
 
         })}
       

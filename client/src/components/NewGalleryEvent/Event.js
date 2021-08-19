@@ -37,18 +37,12 @@ delete:false,
     }
 
   
-this.getMenu=this.getMenu.bind(this);
 this.deleteImg=this.deleteImg.bind(this);
 
 
   }
 
-componentDidMount(){
-  this.setState({menu:this.getMenu(this.props.event.category)})
 
-  
-
-}
 deleteImg(){
    
   axios.delete(Config.getServerPath()+'photo/'+this.props.day._id+'/'+this.props.eventId)
@@ -57,24 +51,14 @@ deleteImg(){
 if(res.data.status===404){
 return
 }
+this.props.updateGalleryEvent(res.data.day)
 this.setState({delete:true})
 
   })
   .catch(() => {}   );
 }
 
-getMenu(menu){
-  if(menu==10)
-  return 'ארוחת בוקר';
 
-  if(menu==20)
-  return 'ארוחת צהריים';
-  
-  if(menu==30)
-  return 'ארוחת אחר הצהריים';
-
-  
-}
   render() {
     // if(this.props.user===null)
     // return <Redirect to={'/'}/>;
@@ -83,7 +67,7 @@ getMenu(menu){
       if(this.state.delete) return '';
     return (
 
-      <div className={this.props.big?'event-gallery':'event-gallery-small'} style={{display:'flex',marginRight:'20px'}} dir="rtl">
+      <div className={this.props.big?'event-gallery':'event-gallery-small'}  dir="rtl">
         
             {/* <p className={this.props.big?'time':'time-small'}>{this.state.menu} -</p> */}
         <img src={this.props.event} onClick={this.props.openImageViewer} className={this.props.big?'img-gallery':'img-gallery-small'}/>  

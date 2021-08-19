@@ -36,6 +36,10 @@ class App extends React.Component {
        dayEvent:[],
        menuEvent:[],
        galleryEvent:[],
+       shopProduct:[],
+       Users:[],
+       children:[],
+
         
 
 
@@ -46,9 +50,9 @@ class App extends React.Component {
       this.updateDayEvent=this.updateDayEvent.bind(this);
       this.updateMenuEvent=this.updateMenuEvent.bind(this);
       this.updateGalleryEvent=this.updateGalleryEvent.bind(this);
+      this.updateShopProduct=this.updateShopProduct.bind(this);
+      this.updateUsers=this.updateUsers.bind(this);
 
-
-    
     
     }
    
@@ -72,36 +76,78 @@ class App extends React.Component {
   
       })
 
+      axios.get(Config.getServerPath()+'product')
+      .then(res => {
+        this.setState({shopProduct:res.data})
+  
+      })
+
+      if(isAuth().type==='0'){
+      axios.get(Config.getServerPath()+'users')
+      .then(res => {
+        this.setState({Users:res.data})
+  
+      })
+    }
+    if(isAuth().type==='0'||isAuth().type==='2'){
+      axios.get(Config.getServerPath()+'children')
+      .then(res => {
+        this.setState({children:res.data})
+  
+      })
+    }
+
     
     }
     updateDayEvent(day){
           this.setState({dayEvent:day})
     }
     updateMenuEvent(menu){
-      console.log('menu')
-
-      console.log(menu)
+   
       this.setState({menuEvent:menu})
+      
+}
+updateUsers(Users){
+  if(isAuth().type==='0'){
+    axios.get(Config.getServerPath()+'users')
+    .then(res => {
+      this.setState({Users:res.data})
+
+    })
+  }
 }
 updateGalleryEvent(gallery){
   this.setState({galleryEvent:gallery})
 }
-  updateUser(){
-      axios.get(Config.getServerPath()+'user/'+isAuth()._id)
+updateShopProduct(products){
+  this.setState({shopProduct:products})
+}
+  async updateUser(){
+    if(isAuth().type==='0'||isAuth().type==='2'){
+      axios.get(Config.getServerPath()+'children')
+      .then(res => {
+        this.setState({children:res.data})
+  
+      })
+    }
+    return  await axios.get(Config.getServerPath()+'user/'+isAuth()._id)
       .then(res => {
         if(res.data.status===404)//mail
         return false;
         if(res.data.status===400)//pasaawor
         return false;
         localStorage.setItem('user',JSON.stringify(res.data.user))
-        //this.setUser(res.data.user)
+       console.log(res.data.user)
         return true;
   
   
       })
       .catch(() => {    console.log('send')
     }   );
+
+    
   }
+  
   
   
     
@@ -141,21 +187,29 @@ updateGalleryEvent(gallery){
                        render={(props) =>isAuth().type===('1')?
                            <UserDashboard {...props}
                            user={this.state.user}
+                           updateUser={this.updateUser}
+
                                  />
                                  :(isAuth().type===('0')||isAuth().type===('2'))?
                   
                            <AdminDashboard {...props}
                            user={this.state.user}
-                           updateUser={this.updateUser}
+                           users={this.state.Users}
+                           updateUsers={this.updateUsers}
+                           children={this.state.children}
                                  />:isAuth().type===('3')? <Shop {...props}
                                  loginStatus={this.state.loginStatus}
                                  user={this.state.user}
+                                 shopProduct={this.state.shopProduct}
+
+                                 updateShopProduct={this.updateShopProduct}
                                  updateUser={this.updateUser}/>: <DailyPlan {...props}
                                  loginStatus={this.state.loginStatus}
                                  user={this.state.user}
                                  updateUser={this.updateUser}
                                  dayEvent={this.state.dayEvent}
-      
+                                 updateDayEvent={this.updateDayEvent}
+
       
                                        />} />
 
@@ -165,6 +219,7 @@ updateGalleryEvent(gallery){
                            user={this.state.user}
                            updateUser={this.updateUser}
                            menuEvent={this.state.menuEvent}
+                           updateMenuEvent={this.updateMenuEvent}
 
                                  />} />
 
@@ -173,6 +228,7 @@ updateGalleryEvent(gallery){
                            <ChildRegistration {...props}
                            user={this.state.user}
                            setUser={this.setUser}
+                           updateUser={this.updateUser}
 
                                  />} />
                                   <Route path={'/DailyPlan'} exact
@@ -182,6 +238,7 @@ updateGalleryEvent(gallery){
                            user={this.state.user}
                            updateUser={this.updateUser}
                            dayEvent={this.state.dayEvent}
+                           updateDayEvent={this.updateDayEvent}
 
 
                                  />} />
@@ -217,6 +274,7 @@ updateGalleryEvent(gallery){
                            user={this.state.user}
                            updateUser={this.updateUser}
                            galleryEvent={this.state.galleryEvent}
+                           updateGalleryEvent={this.updateGalleryEvent}
 
 
                                  />} />
@@ -226,6 +284,7 @@ updateGalleryEvent(gallery){
                            loginStatus={this.state.loginStatus}
                            user={this.state.user}
                            updateUser={this.updateUser}
+                           updateShopProduct={this.updateShopProduct}
 
 
                                  />} />
@@ -237,7 +296,8 @@ updateGalleryEvent(gallery){
                            loginStatus={this.state.loginStatus}
                            user={this.state.user}
                            updateUser={this.updateUser}
-
+                           shopProduct={this.state.shopProduct}
+                           updateShopProduct={this.updateShopProduct}
 
                                  />} />
                                  <Route path={'/shopcart'} exact
@@ -249,16 +309,7 @@ updateGalleryEvent(gallery){
 
 
                                  />} />
-                                       <Route path={'/PaymentForm'} exact
-                       render={(props) =>
-                           <PaymentForm {...props}
-                           loginStatus={this.state.loginStatus}
-                           user={this.state.user}
-                           updateUser={this.updateUser}
-                           price={50}
-
-
-                                 />} />
+                               
             </Switch>
             
         </div>

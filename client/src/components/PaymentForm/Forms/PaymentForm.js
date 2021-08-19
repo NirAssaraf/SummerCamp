@@ -82,7 +82,7 @@ const PaymentForm = (props) => {
       console.log('error')
     return
     }
-    console.log(res.data)
+    if(this.props.updateUser()===true)
     setalert(true); 
     
     
@@ -111,7 +111,7 @@ const PaymentForm = (props) => {
     
     return <>
 
-        <Grid container item xs={15}>
+{!alert? (<> <Grid container item xs={15}>
             <Grid item xs={12} sm={3}>
                 {/* <Typography variant="h6">Payment Data</Typography> */}
             </Grid>
@@ -210,7 +210,7 @@ const PaymentForm = (props) => {
         </div>
         <button onClick={props.child?PaymentSuccecsChild: PaymentSuccecs} type='submit'  id='pay'>שלם</button>
         <br/>
-        {alert?( <Alert id='success-alert' severity="success"    action={
+ </>) :(<> <Alert id='success-alert' severity="success"    action={
             <IconButton id='close-icon'
               aria-label="close"
               color="inherit"
@@ -224,7 +224,11 @@ const PaymentForm = (props) => {
           }>
         <AlertTitle  id='success-alert-title'>התשלום בוצע בהצלחה</AlertTitle>
         הקבלה תשלח למייל
-      </Alert>):''}
+      </Alert>
+      <div className='cart-no-product'>
+  <a href='/'>למעבר לדף הראשי</a>
+  </div>
+      </>)}
     </>
 }
 

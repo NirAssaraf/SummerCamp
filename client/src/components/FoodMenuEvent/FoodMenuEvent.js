@@ -57,7 +57,7 @@ this.addToMenu=this.addToMenu.bind(this);
         }
 
       })
-     
+      // EventsAfternoon.filter((a)=>a.category.includes('10')).length
       this.setState({EventsAfternoon:EventsAfternoon})
       this.setState({EventsBreakfast:EventsBreakfast})
       this.setState({EventsLunch:EventsLunch})
@@ -71,11 +71,12 @@ this.addToMenu=this.addToMenu.bind(this);
   if(res.data.status===404){
   return
   }
+  this.props.updateMenuEvent(res.data.day)
   this.setState({delete:true})
   
       })
       .catch(() => {}   );
-console.log('delete user')
+console.log('delete menu')
     }
      handleClick = (event) => {
        this.setState({toggle:!this.state.toggle})
@@ -111,23 +112,26 @@ console.log('delete user')
 
     
         <div className='menu-type'>
-         {this.state.EventsBreakfast.length!=0?( <p className='menu-type-title-e'><u>  <span class="iconify" data-icon="whh:restaurantmenu" data-inline="false"></span>  ארוחת בוקר</u></p>):''}
-        { this.state.EventsBreakfast.map((item,index)=>{
-          return  <Event key={index} event={item} day={this.props.day} big={false}/>
+         {this.props.day.foods.filter((a)=>a.category.includes('10')).length!=0?( <p className='menu-type-title-e'><u>  <span class="iconify" data-icon="whh:restaurantmenu" data-inline="false"></span>  ארוחת בוקר</u></p>):''}
+        { this.props.day.foods.map((item,index)=>{
+          if(item.category.includes('10'))
+          return  <Event key={index} event={item} day={this.props.day} big={false} updateMenuEvent={this.props.updateMenuEvent}/>
 
         })}
         </div>
         <div className='menu-type'>
-         {this.state.EventsLunch.length!=0?( <p className='menu-type-title-e'><u>  <span class="iconify" data-icon="whh:restaurantmenu" data-inline="false"></span>  ארוחת צהריים</u></p>):''}
-        { this.state.EventsLunch.map((item,index)=>{
-          return  <Event key={index} event={item}day={this.props.day} big={false}/>
+         {this.props.day.foods.filter((a)=>a.category.includes('20')).length!=0?( <p className='menu-type-title-e'><u>  <span class="iconify" data-icon="whh:restaurantmenu" data-inline="false"></span>  ארוחת צהריים</u></p>):''}
+        { this.props.day.foods.map((item,index)=>{
+                  if(item.category.includes('20'))
+          return  <Event key={index} event={item}day={this.props.day} big={false}updateMenuEvent={this.props.updateMenuEvent}/>
 
         })}
         </div>
         <div className='menu-type'>
-         {this.state.EventsAfternoon.length!=0?( <p className='menu-type-title-e'><u>  <span class="iconify" data-icon="whh:restaurantmenu" data-inline="false"></span>  ארוחת אחר צהריים</u></p>):''}
-        { this.state.EventsAfternoon.map((item,index)=>{
-          return  <Event key={index} event={item}day={this.props.day} big={false}/>
+         {this.props.day.foods.filter((a)=>a.category.includes('30')).length!=0?( <p className='menu-type-title-e'><u>  <span class="iconify" data-icon="whh:restaurantmenu" data-inline="false"></span>  ארוחת אחר צהריים</u></p>):''}
+        { this.props.day.foods.map((item,index)=>{
+                  if(item.category.includes('30'))
+          return  <Event key={index} event={item}day={this.props.day} big={false} updateMenuEvent={this.props.updateMenuEvent}/>
 
         })}
         </div>
