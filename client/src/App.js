@@ -56,47 +56,47 @@ class App extends React.Component {
     
     }
    
-    componentDidMount(){
-      axios.get(Config.getServerPath()+'events')
+    componentWillMount(){
+      axios.post(Config.getServerPath()+'events')
       .then(res => {
         
         this.setState({dayEvent:res.data.day})
   
       })
-      axios.get(Config.getServerPath()+'menu')
+      axios.post(Config.getServerPath()+'menus')
       .then(res => {
         console.log(res.data.day)
         this.setState({menuEvent:res.data.day})
   
       })
-      axios.get(Config.getServerPath()+'photo')
+      axios.post(Config.getServerPath()+'photos')
       .then(res => {
         console.log(res.data.day)
         this.setState({galleryEvent:res.data.day})
   
       })
 
-      axios.get(Config.getServerPath()+'product')
+      axios.post(Config.getServerPath()+'products')
       .then(res => {
         this.setState({shopProduct:res.data})
   
       })
-
+if(isAuth()!=null){
       if(isAuth().type==='0'){
-      axios.get(Config.getServerPath()+'users')
+      axios.post(Config.getServerPath()+'users')
       .then(res => {
         this.setState({Users:res.data})
   
       })
     }
     if(isAuth().type==='0'||isAuth().type==='2'){
-      axios.get(Config.getServerPath()+'children')
+      axios.post(Config.getServerPath()+'children')
       .then(res => {
         this.setState({children:res.data})
   
       })
     }
-
+  }
     
     }
     updateDayEvent(day){
@@ -109,7 +109,7 @@ class App extends React.Component {
 }
 updateUsers(Users){
   if(isAuth().type==='0'){
-    axios.get(Config.getServerPath()+'users')
+    axios.post(Config.getServerPath()+'users')
     .then(res => {
       this.setState({Users:res.data})
 
@@ -124,13 +124,13 @@ updateShopProduct(products){
 }
   async updateUser(){
     if(isAuth().type==='0'||isAuth().type==='2'){
-      axios.get(Config.getServerPath()+'children')
+      axios.post(Config.getServerPath()+'children')
       .then(res => {
         this.setState({children:res.data})
   
       })
     }
-    return  await axios.get(Config.getServerPath()+'user/'+isAuth()._id)
+    return  await axios.post(Config.getServerPath()+'userId/'+isAuth()._id)
       .then(res => {
         if(res.data.status===404)//mail
         return false;

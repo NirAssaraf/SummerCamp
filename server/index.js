@@ -15,6 +15,10 @@ console.log("connected")});
 }catch (error) { 
 console.log("could not connect");    
 }
+app.use(express.static('build'));
+app.get('/*', function (req, res) {
+    res.sendFile('build/index.html', {root: __dirname });
+});
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());

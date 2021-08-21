@@ -2,7 +2,7 @@
     /* width: 50%; */
     display: flex;
     margin-left: 10px;
-    margin-top: 15px;
+    margin-top: 35px;
 }
 /* *{
     direction: ltr;
@@ -18,29 +18,59 @@
     background-color: white;
 }
 #pay{
-    margin-right: 0px;
-    padding-left: 15px;
-    padding-right: 20px;
+
     border-radius: 20px;
     color: black;
-    border: 2px #4998B7 solid;
-    background-color: white;
+    border: none;
+    /* border: 1px rgb(83, 83, 83) solid; */
+    /* background-color: rgba(73, 152, 183, 0.219); */
     font-size: 18px;
-    margin-right: 22px;
     margin-bottom: 15px;
+padding: 10px;
+margin-top: 70px;
+width: 72%;
+    font-family: 'Alef', sans-serif;
+}
+#pay-back{
 
-margin-top: 20px;
-width: 90%;
+    border-radius: 20px;
+    color: black;
+    border: none;
+    /* background-color: rgba(73, 152, 183, 0.219); */
+    font-size: 15px;
+    margin-bottom: 15px;
+margin-top: 90px;
+width: 72%;
     font-family: 'Alef', sans-serif;
 }
 #pric-2{
-    margin-top: 15px;
+    margin-top: 30px;
     margin-bottom: 15px;
     margin-left: 10px;
     margin-right: 10px;
 
 }
+.payment{
+    font-family: 'Alef', sans-serif;
+    direction: rtl;
+    width: 100%;
+    color: rgb(22, 129, 158);
+    padding-top: 20px;
+    margin-right: 10px;
+    align-items: center;
+    text-align: center;
+    /* background-color: whitesmoke; */
 
+
+
+}
+.cards{
+margin-right: 50px;
+margin-top: 20px;
+}
+.titel-payment{
+    margin-bottom: 15px;
+}
 #txt{
     padding: 0;
 }

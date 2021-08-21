@@ -76,13 +76,14 @@ const PaymentForm = (props) => {
     const [activeStep, setActiveStep] = React.useState(0);
 
     const PaymentSuccecs=(()=>{
-        axios.get(Config.getServerPath()+'cart/'+props.user._id)
+        axios.post(Config.getServerPath()+'cart/'+props.user._id)
         .then(res => {
     if(res.data.status===400){
       console.log('error')
     return
     }
-    if(this.props.updateUser()===true)
+    const r= props.handleAddChild();
+    if(r)
     setalert(true); 
     
     
@@ -92,15 +93,16 @@ const PaymentForm = (props) => {
         setalert(true);
     });
     const PaymentSuccecsChild=(()=>{
-      axios.get(Config.getServerPath()+'childPay/'+props.user._id)
+      axios.post(Config.getServerPath()+'childPay/'+props.user._id)
       .then(res => {
   if(res.data.status===400){
     console.log('error')
   return
   }
-  console.log(res.data)
+  console.log(props.user._id)
+ const r= props.handleAddChild();
+if(r)
   setalert(true); 
-  props.handleAddChild();
   
   
       })
@@ -111,19 +113,14 @@ const PaymentForm = (props) => {
     
     return <>
 
-{!alert? (<> <Grid container item xs={15}>
-            <Grid item xs={12} sm={3}>
-                {/* <Typography variant="h6">Payment Data</Typography> */}
-            </Grid>
-            <Grid container item xs={12} sm={9} justify="space-between">
-                {cardsLogo.map(e => <img key={e} src={e} alt={e} width="40px" align="bottom" id='pric-img' style={{ padding: "0 5px" }} />)}
-            </Grid>
-        </Grid>
+{!alert? (<div className='payment'>
+<h3 hidden={!props.child} className='titel-payment'><u>תשלום רישום ילד</u> </h3>
+
         <div id='pric-div' >
         <div  id='pric-1'>
         <TextField
           id="outlined-disabled"
-          label="Currency"
+          label="מטבע"
                         // name="currency"
                         variant="outlined"
                         value={'ILS  ₪'}
@@ -135,7 +132,7 @@ const PaymentForm = (props) => {
         <div id='pric-1'>
 
             <TextField
-                label="Amount"
+                label="סכום"
                 name="amount"
                 variant="outlined"
                 required
@@ -158,7 +155,7 @@ const PaymentForm = (props) => {
         
         <div id='pric-2'>
             <TextField
-                label="Credit Card Number"
+                label="מספר אשראי"
                 name="ccnumber"
                 variant="outlined"
                 required
@@ -175,7 +172,7 @@ const PaymentForm = (props) => {
         <div id='pric-div'className='MuiTextField-root' >
         <div id='pric-1'>
             <TextField
-                label="Expiration Date"
+                label="תוקף כרטיס"
                 name="ccexp"
                 variant="outlined"
                 required
@@ -208,9 +205,19 @@ const PaymentForm = (props) => {
             />
         </div>
         </div>
-        <button onClick={props.child?PaymentSuccecsChild: PaymentSuccecs} type='submit'  id='pay'>שלם</button>
+
+
+            <div className='cards'>
+            <Grid container item xs={10} sm={6} justify="space-between">
+                {cardsLogo.map(e => <img key={e} src={e} alt={e} width="60px" align="bottom" id='pric-img' style={{ padding: "5px 5px" }} />)}
+            </Grid>
+            </div>
+        <button onClick={props.child?PaymentSuccecsChild: PaymentSuccecs} type='submit'  id='pay'>בצע תשלום</button>
+        <button onClick={props.back} hidden={!props.child}  id='pay-back'>לחזרה לעמוד הקודם</button>
+
         <br/>
- </>) :(<> <Alert id='success-alert' severity="success"    action={
+        </div>
+) :(<> <Alert id='success-alert' severity="success"    action={
             <IconButton id='close-icon'
               aria-label="close"
               color="inherit"

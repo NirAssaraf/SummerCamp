@@ -46,6 +46,7 @@ export default class ChildRegistration extends Component {
       exit: false,
       error:false,
       childImage:'',
+      childImageE:false,
       updateMode:false,
       child:'',
       pay:false,
@@ -98,6 +99,7 @@ export default class ChildRegistration extends Component {
     this.setState({childClassE:false})
     this.setState({childIdE:false})
     this.setState({childNameE:false})
+    this.setState({childImageE:false})
 
 
   }
@@ -124,7 +126,7 @@ export default class ChildRegistration extends Component {
       this.setState({error:"המייל כבר קיים"})
       return
       } 
-      console.log(this.props.updateUser())
+      this.props.updateUser();
 
         this.setState({ exit: true });
 
@@ -174,6 +176,13 @@ let error=false;
 
               
               }
+              if(this.state.childImage===''){
+                this.setState({childImageE:true})
+                error=true;
+  
+  
+                
+                }
               if(this.state.childPerantMail===''|| !this.state.childPerantMail.includes('@')){
                 this.setState({childPerantMailE:true})
                 error=true;
@@ -186,11 +195,11 @@ let error=false;
     if(this.childValidation()===true) return
 this.setState({pay:true})
   }
-  handleAddChild() {
+ async handleAddChild() {
 
               
-                if(this.childValidation()===true) return
-
+                // if(this.childValidation()===true) return
+console.log('handleAddChild')
 
                 const Data = {
                   name:this.state.childName,
@@ -205,14 +214,15 @@ this.setState({pay:true})
                   photoUrl:this.state.childImage
                
               };
-                axios.post(Config.getServerPath()+'child/'+this.props.user._id,Data)
+              return await  axios.post(Config.getServerPath()+'child/'+this.props.user._id,Data)
                 .then(res => {
                   if(res.data.status===400){//הילד קיים
                   this.setState({error:"המייל כבר קיים"})
                   return
                   } 
-                  this.props.updateUser();
-                    this.setState({ exit: true });
+                    this.props.updateUser();
+                    return true;
+                    //this.setState({ exit: true });
 
                       })
                       .catch(() => {}   );
@@ -245,7 +255,7 @@ this.setState({pay:true})
     if (this.state.exit)
     return <Redirect to={'/UserDashboard'} />;
     if(this.state.pay)
-    return <PaymentForm price={'1200'} user={this.props.user}child={true} handleAddChild={this.handleAddChild}/> 
+    return <PaymentForm price={'1200'} user={this.props.user}child={true} handleAddChild={this.handleAddChild} back={()=>this.setState({pay:false})}/> 
 
     return (
       <div className='ChildRegistration' dir="rtl">
@@ -349,7 +359,10 @@ this.setState({pay:true})
 
         </FormControl>
         <br />
+        <div className='product-add-img'>
         <ImageUploading url={this.state.childImage} setImage={this.setImage}/>
+      {this.state.childImageE?<p className='miss-img'>חסרה תמונה</p>:''}
+      </div>
         <br />
         <Button onClick={this.state.updateMode?this.handelUpdateChild:this.handleAddChildPay} id='child-submit' >{this.state.updateMode?'עדכון':'שליחה'}</Button>
         <Button onClick={this.handleClose} id='child-submit' >ביטול</Button>

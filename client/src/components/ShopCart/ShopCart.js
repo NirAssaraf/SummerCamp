@@ -53,13 +53,15 @@ this.setTotal=this.setTotal.bind(this);
     }
 
   }
-  handlePay(){
-    this.props.updateUser();
+  async handlePay(){
+  await  this.props.updateUser();
+  this.setState({total:0});
+  return true;
 
   }
   getTotal(){
     console.log(this.props.user._id)
-    axios.get(Config.getServerPath()+'price/'+this.props.user._id)
+    axios.post(Config.getServerPath()+'priceTotal/'+this.props.user._id)
     .then(res => {
       console.log(res.data)
 if(res.data.status==='faild'){

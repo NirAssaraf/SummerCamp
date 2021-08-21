@@ -22,7 +22,7 @@ return res;
 
 export const signin= postData =>{
   
-    return axios.get(Config.getServerPath()+'user/'+postData.email+'/'+postData.password)
+    return axios.post(Config.getServerPath()+'userLogin/'+postData.email+'/'+postData.password)
       .then(res => {
         return res;
         }

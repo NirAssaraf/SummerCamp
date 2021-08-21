@@ -204,15 +204,16 @@ await PayPdf(user,total,cartProduct);
               path: "./invoice.pdf",
             }]
     };
+    res.json({status:200})
 
-    mailTransporter.sendMail(mailDetails, function(err, data) {
-        if(err) {
-            console.log(err);
-        } else {
-            console.log('Email sent successfully');
-            res.json({status:200})
-        }
-    });
+    // mailTransporter.sendMail(mailDetails, function(err, data) {
+    //     if(err) {
+    //         console.log(err);
+    //     } else {
+    //         console.log('Email sent successfully');
+    //         res.json({status:200})
+    //     }
+    // });
 }
 
 

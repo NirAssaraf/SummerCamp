@@ -47,7 +47,7 @@ this.addCart=this.addCart.bind(this);
   }
 
   addCart(){
-    axios.get(Config.getServerPath()+'product/'+this.props.user._id+'/'+this.props.product._id)
+    axios.post(Config.getServerPath()+'productCart/'+this.props.user._id+'/'+this.props.product._id)
     .then(res => {
       console.log(res.data.status)
   if(res.data.status===404){
