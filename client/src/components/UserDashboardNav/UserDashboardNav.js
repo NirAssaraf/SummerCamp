@@ -67,7 +67,11 @@ this.logout=this.logout.bind(this);
               name: 'עמוד ראשי',
               link: '/UserDashboard',
           },
-         
+          (this.props.user.type==='1')?
+          {
+            name: 'הילדים שלי',
+            link: '/MyChild',
+        }:  '',
           {
               name: 'תפריט',
               link: '/Foodmenu',

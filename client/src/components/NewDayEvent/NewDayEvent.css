@@ -105,18 +105,7 @@
         position: relative;
     }
     
-    #child{
-        font-size: 16px;
-        font-family: 'Alef', sans-serif;
-        display: block;
-        float: right;
-        margin-left:4px;
-        text-align: right;
-        line-height: 22px;
-    
-    
-       
-    }
+ 
     
     .titel-ChildRegd{
         margin-top: 50px;

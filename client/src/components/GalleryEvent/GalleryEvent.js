@@ -105,13 +105,15 @@ console.log('delete user')
      <button className='gallery-btn' onClick={this.handleClick}>{this.date}</button>
       <button hidden={(isAuth().type!='0'&&isAuth().type!='2')} onClick={this.deleteDay} className='delete-gallery-btn'><span class="iconify" data-icon="fluent:delete-dismiss-24-regular" data-inline="false" ></span></button>
 
-     {this.state.toggle?(<div className='gallery-details'>
+     {this.state.toggle?(<>
+     <div className='gallery-details'>
        {/* <div style={{ position:'relative'}}> */}
 
       { this.props.day.photos.map((item,index)=>{
           return  <Event key={index} openImageViewer={()=>this.openImageViewer(index)} event={item.url} eventId={item._id}big={false} day={this.props.day} updateGalleryEvent={this.props.updateGalleryEvent} />
 
         })}
+          </div>
        {this.state.isOpen && (
         <MyImageViewer
         images={ this.state.viewerImage }
@@ -124,8 +126,9 @@ console.log('delete user')
  <button hidden={(isAuth().type!='0'&&isAuth().type!='2')} onClick={()=>this.setState({edit:true})} className='add-to-event-gallery'><span id='plus-menu' class="iconify" data-icon="bi:plus-lg" data-inline="false" ></span>הוסף </button>
 
        {/* </div> */}
+       </>
 
-     </div>):''}
+   ):''}
 
 
     </div>

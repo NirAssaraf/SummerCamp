@@ -39,6 +39,7 @@ class Navbar extends React.Component {
     }
 
     getMenuItem(item) {
+        if(item=='' ) return
         if (item.link != null) {
           
                 return (

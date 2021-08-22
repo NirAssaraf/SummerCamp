@@ -11,6 +11,7 @@ import DailyPlan from './components/DailyPlan/DailyPlan';
 import GalleryPlan from './components/GalleryPlan/GalleryPlan';
 import Shop from './components/Shop/Shop';
 import {isAuth} from './actions/auth';
+import MyChild from './components/MyChild/MyChild';
 
 import NewShopProduct from './components/NewShopProduct/NewShopProduct';
 import ShopCart from './components/ShopCart/ShopCart';
@@ -188,6 +189,8 @@ updateShopProduct(products){
                            <UserDashboard {...props}
                            user={this.state.user}
                            updateUser={this.updateUser}
+                           menuEvent={this.state.menuEvent}
+                           dayEvent={this.state.dayEvent}
 
                                  />
                                  :(isAuth().type===('0')||isAuth().type===('2'))?
@@ -222,7 +225,14 @@ updateShopProduct(products){
                            updateMenuEvent={this.updateMenuEvent}
 
                                  />} />
+<Route path={'/MyChild'} exact
+                       render={(props) =>
+                           <MyChild {...props}
+                           user={this.state.user}
+                           updateUser={this.updateUser}
+                     
 
+                                 />} />
 <Route path={'/ChildRegistration'} exact
                        render={(props) =>
                            <ChildRegistration {...props}

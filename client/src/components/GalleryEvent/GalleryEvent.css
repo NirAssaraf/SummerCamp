@@ -63,10 +63,10 @@
         position: absolute;
         background-color: rgba(114, 114, 114, 0.625);
         top: -300px;
-        left: -30px;
+        left: -32px;
         z-index: 1000;
         width: 118%;
-        height: 300%;
+        height: 200%;
         border-radius: 10px;
         direction: rtl;
         justify-items: center;

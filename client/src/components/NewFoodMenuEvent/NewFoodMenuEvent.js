@@ -193,7 +193,7 @@ this.setState({ exit: true });
       return <Redirect to={'/FoodMenu'} />;
     return (
 
-      <div className='new-day-event' dir="rtl">
+      <div className='new-menu-event' dir="rtl">
 
         <h3 className='titel-new-event'><u>הוספת תפריט אוכל</u> </h3>
         <DatePicker disabled={this.state.updateMode} id='date-piker'   dateFormat="dd/MM/yy" selected={this.state.startDate} onChange={(date) => this.setState({startDate: date})} />
@@ -260,9 +260,10 @@ this.setState({ exit: true });
         })}
       
       </div>
-        <Button onClick={this.handleAddEvent} id='child-submit-event' >שליחה</Button>
-        <Button onClick={this.handleClose} id='child-submit-event-cancel' >ביטול</Button>
-
+      <div className='child-submit-event-menu-div'>
+        <Button onClick={this.handleAddEvent} id='child-submit-event-menu' >שליחה</Button>
+        <Button onClick={this.handleClose} id='child-submit-event-cancel-menu' >ביטול</Button>
+        </div>
       </div>
 
     );

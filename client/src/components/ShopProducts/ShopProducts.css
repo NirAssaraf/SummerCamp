@@ -39,7 +39,8 @@
     position: relative;
     direction: rtl;
 margin-top: 120px;
-width: 100%;
+width: 90%;
+margin-left: 30px;
 /* direction: ltr; */
     grid-template-columns:repeat(3, 46%);
 

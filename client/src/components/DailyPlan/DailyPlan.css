@@ -25,6 +25,8 @@ margin-bottom: 20px;
     text-align: center;
     border-radius: 7px;
     border: none;
+    background-color: transparent;
+    
     /* border: 1px #4998B7 solid;
     border-left: none;
     background-color: whitesmoke;
@@ -49,7 +51,7 @@ margin-bottom: 20px;
 .date-select{
     display: flex;
     position: absolute;
-    left: 40px;
+    left: 45px;
     margin-top: -10px;
     width: 80%;
     border-radius: 7px;
@@ -63,7 +65,7 @@ margin-bottom: 20px;
 .all-day{
     position: relative;
     top: 10px;
-    left: 35px;
+    left: 42px;
 }
 .daily-plan{
     position: relative;
