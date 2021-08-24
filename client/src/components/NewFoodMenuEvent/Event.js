@@ -18,23 +18,16 @@ export default class Event extends Component {
      
 
 delete:false,
-      menu:'',
 
     }
 
   
-this.getMenu=this.getMenu.bind(this);
 this.deleteEvent=this.deleteEvent.bind(this);
 
 
   }
 
-componentDidMount(){
-  this.setState({menu:this.getMenu(this.props.event.category)})
 
-  
-
-}
 deleteEvent(){
    
   axios.delete(Config.getServerPath()+'menu/'+this.props.event._id+'/'+this.props.day._id)
@@ -52,23 +45,11 @@ this.setState({delete:true})
   console.log('delete food')
 }
 
-getMenu(menu){
-  if(menu==10)
-  return 'ארוחת בוקר';
 
-  if(menu==20)
-  return 'ארוחת צהריים';
-  
-  if(menu==30)
-  return 'ארוחת אחר הצהריים';
-
-  
-}
   render() {
     // if(this.props.user===null)
     // return <Redirect to={'/'}/>;
-    if (this.state.exit)
-      return <Redirect to={'/FoodMenu'} />;
+
       if(this.state.delete) return '';
     return (
 

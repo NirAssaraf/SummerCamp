@@ -1,21 +1,11 @@
 import React, {Component} from 'react';
-import PoolBack from '../../Images/poolback.jpeg';
 import './ShopCart.css';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
+
 import Button from '@material-ui/core/Button';
-import {Redirect} from "react-router-dom";
-import Icon from '@material-ui/core/Icon';
-import Navbar from '../Navbar/Navbar1';
-import { Divide as Hamburger } from 'hamburger-react'
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+
 import Config from '../../config/config';
 import axios from 'axios';
 import ShopCartProduct from './ShopCartProduct';
-import { format } from 'date-fns';
 import UserDashboardNav from '../UserDashboardNav/UserDashboardNav';
 import PaymentForm from '../PaymentForm/PaymentForm';
 import { isAuth } from '../../actions/auth';
@@ -102,13 +92,8 @@ this.setState({totalPrice:res.data.sum})
     return (
       <div>
         <UserDashboardNav user={this.props.user} ShopCart={true} total={this.state.total}/>
-        {/* {this.props.user!=null?this.setState({products: this.props.user.cart}):''} */}
     <div  className='cart'>
-     {/* <button className='user-btn' onClick={this.handleClick}>{this.date}</button> */}
-     {/* <button onClick={this.deleteDay} className='delete-event'><span class="iconify" data-icon="fluent:delete-dismiss-24-regular" data-inline="false" ></span></button> */}
-
-    {/* <div className='event-details'> */}
-       {/* <div style={{ position:'relative'}}> */}
+ 
        {!this.state.Payment?(<><p className='cart-titles'>הפריטים שלי</p>
 
       { this.state.products.map((item,index)=>{
@@ -127,9 +112,7 @@ this.setState({totalPrice:res.data.sum})
   </div>} 
   </>):     
      (<div className='payment-table'><PaymentForm price={this.state.totalPrice} updateUser={this.props.updateUser} user={this.props.user} handleAddChild={this.handlePay}/></div>)}
-       {/* </div> */}
-
-     {/* </div> */}
+   
      </div>
 
 

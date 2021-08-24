@@ -34,6 +34,7 @@ this.logout=this.logout.bind(this);
 
 
     }
+    
     componentDidMount(){
       const user=isAuth();
       if(user.type==='0'){
@@ -147,7 +148,6 @@ getMenu() {
     return (
       
     <div  className='UserDashboard'>
-      {console.log(this.props.showMenu)}
       {isAuth().type!='3'&&isAuth().type!='4'&&(this.props.showMenu||this.props.showMenu===undefined)?<>
       {this.getMenu()}
       <div id='Hamburger'>

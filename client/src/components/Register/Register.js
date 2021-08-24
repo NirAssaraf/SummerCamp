@@ -22,11 +22,9 @@ export default class Register extends Component {
       mailE:false,
       mailEmsg:'',
 
-      error:''
     }
 
     this.handelSubmit = this.handelSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
 
   }
   
@@ -76,15 +74,12 @@ if(res.data.status==='faild'){
 return
 }
 
-      this.props.setUser(res.data.user)
 
     })
     .catch(() => {}   );
     console.log('send')
   }
-   handleChange(event) {
-    this.setState({userType:event.target.value});
-  };
+
 
   render() {
     if(isAuth())
@@ -94,7 +89,6 @@ return
 {/* {this.handelSubmit()} */}
         <h1 className='h1-register'> קייטנת עושים גלים <span className='summer_txt-register'>חלום של קיץ</span></h1>
         <p id='pText-register' className='h1-register'>דף הרשמה</p>
-
         <div  id='register-form' >
           <FormControl className='login'  >
             <InputLabel id="input-user" htmlFor="input-user"  >שם משתמש</InputLabel>
@@ -125,22 +119,7 @@ return
 
           <br/>
         
-          {/* <FormControl  variant="standard" id='userType-select'>
-        <InputLabel shrink id='userType-select-label'>סוג משתמש</InputLabel>
-        <Select
-        required
-        labelId="demo-simple-select-placeholder-label-label"
-        id="demo-simple-select-placeholder-label"
-          value={this.state.userType}
-          onChange={this.handleChange}
-          displayEmpty
-        >
-    <MenuItem value="">
-            <em>הורה</em>
-          </MenuItem>
-          <MenuItem value={20}>מדריך</MenuItem>
-        </Select>
-      </FormControl> */}
+   
           <button  onClick={this.handelSubmit} id='register-submit'  type="submit" value="Submit" variant="outlined" color="primary"  >
             הירשם
     </button>

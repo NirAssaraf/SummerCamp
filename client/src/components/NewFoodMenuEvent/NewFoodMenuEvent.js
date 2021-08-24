@@ -41,7 +41,6 @@ export default class NewFoodMenuEvent extends Component {
 
     }
 
-    this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleChangeSelectMenu = this.handleChangeSelectMenu.bind(this);
 
@@ -92,10 +91,8 @@ export default class NewFoodMenuEvent extends Component {
     axios.post(Config.getServerPath()+'menu',postData)
     .then(res => {
 if(res.data.status===400){
-  console.log('error')
 return
 }
-console.log(res.data)
 this.props.updateMenuEvent(res.data.day);
 
 this.setState({ exit: true });
@@ -161,9 +158,7 @@ this.setState({ exit: true });
 
   }
   
-  handleClick = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
+ 
 
   handleClose = () => {
     this.setState({ exit: true });

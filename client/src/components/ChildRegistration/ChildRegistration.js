@@ -61,7 +61,6 @@ export default class ChildRegistration extends Component {
   }
   componentDidMount(){
     if(this.props.location.update){
-      console.log(this.props.location.child)
 
       this.setState({updateMode:true})
       let child=this.props.location.child
@@ -251,7 +250,6 @@ console.log('handleAddChild')
 
     return (
       <div className='ChildRegistration' dir="rtl">
-{console.log(this.props.location.update)}
 
         {this.state.updateMode?<h3 className='titel-ChildReg'><u>טופס עדכן ילד</u> </h3>:<h3 className='titel-ChildReg'><u>טופס רישום ילד</u> </h3>}
 

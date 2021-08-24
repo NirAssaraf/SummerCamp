@@ -67,10 +67,8 @@ this.setState({delete:true})
 
 
   render() {
-    // if(this.props.user===null)
-    // return <Redirect to={'/'}/>;
-    if (this.state.exit)
-      return <Redirect to={'/UserDashboard'} />;
+
+
       if(this.state.delete) return '';
     return (
 

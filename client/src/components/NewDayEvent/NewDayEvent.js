@@ -170,7 +170,7 @@ this.setState({ exit: true });
     if(isAuth().type!=='0'&&isAuth().type!=='4')
     return <Redirect to={'/'}/>;
     if (this.state.exit)
-    return <Redirect to={{pathname:'/DailyPlan' ,update:true}} />;;
+    return <Redirect to={{pathname:'/DailyPlan'}} />;;
 
     return (
 

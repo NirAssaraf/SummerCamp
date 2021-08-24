@@ -121,7 +121,6 @@ if(r)
         <TextField
           id="outlined-disabled"
           label="מטבע"
-                        // name="currency"
                         variant="outlined"
                         value={'ILS  ₪'}
                         disabled={true}
@@ -141,14 +140,7 @@ if(r)
                 value={props.price}
                 InputLabelProps={{ shrink: true,className:'price-lable' }}
 
-                // value={formValues.amount}
-                // onChange={e =>
-                //     dispatch({
-                //         type: "editFormValue",
-                //         key: "amount",
-                //         value: e.target.value.replace(/[^0-9,.]/g, '')
-                //     })
-                // }
+            
             />
         </div>
         </div>

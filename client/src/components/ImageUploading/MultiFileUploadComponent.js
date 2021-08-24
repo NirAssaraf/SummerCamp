@@ -43,7 +43,6 @@ export default class MultiFileUploadComponent extends Component {
     
         const storage = this.firebase.storage();
         const storageRef = storage.ref("child");
-    console.log('uploadedFile   '+uploadedFile)
 
     var metadata = {
         contentType: uploadedFile.type,
@@ -55,8 +54,6 @@ export default class MultiFileUploadComponent extends Component {
           res.ref.getDownloadURL().then((url)=>{
               
               urlsImage.push(url)
-              console.log('no fi '+ count)
-              console.log('no fi '+ urlsImage.length)
 
               count++
 
