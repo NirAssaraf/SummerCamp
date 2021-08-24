@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import PoolBack from '../../Images/poolback.jpeg';
 import './Register.css';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+
 import FormHelperText from '@material-ui/core/FormHelperText';
-import Select from '@material-ui/core/Select';
-import axios from 'axios';
+
 import {Redirect} from "react-router-dom";
-import Config from '../../config/config';
 import {signup,isAuth} from '../../actions/auth';
 
 

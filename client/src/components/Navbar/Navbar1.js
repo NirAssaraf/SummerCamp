@@ -1,8 +1,6 @@
 import React from 'react';
 import './Navbar.css';
-import { Divide as Hamburger } from 'hamburger-react'
 
-import {Link} from 'react-router-dom';
 
 
 class Navbar extends React.Component {

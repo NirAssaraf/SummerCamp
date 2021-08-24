@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PoolBack from '../../Images/poolback.jpeg';
 import './ChildRegistration.css';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -7,22 +6,16 @@ import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import { Redirect } from "react-router-dom";
-import Icon from '@material-ui/core/Icon';
-import Navbar from '../Navbar/Navbar1';
-import UserDashboardNav from '../UserDashboardNav/UserDashboardNav';
-import ImageUploading from '../ImageUploading/SingleFileUploadComponent';
-import PaymentForm from '../PaymentForm/Forms/PaymentForm';
 
-import { create } from 'jss';
-import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+import ImageUploading from '../ImageUploading/SingleFileUploadComponent';
+import PaymentForm from '../PaymentForm/PaymentForm';
+
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { Divide as Hamburger } from 'hamburger-react'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import TextField from '@material-ui/core/TextField';
 import Config from '../../config/config';
 import axios from 'axios';
+import { isAuth } from '../../actions/auth';
 export default class ChildRegistration extends Component {
   constructor(props, context) {
     super(props, context);
@@ -247,11 +240,10 @@ console.log('handleAddChild')
     this.setState({childImage:url});
   }
 
-  jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
   render() {
-    // if(this.props.user===null)
-    // return <Redirect to={'/'}/>;
+    if(isAuth()===null||(isAuth().type!=1&&isAuth().type!=0))
+    return <Redirect to={'/'}/>;
     if (this.state.exit)
     return <Redirect to={'/UserDashboard'} />;
     if(this.state.pay)

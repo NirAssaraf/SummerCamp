@@ -1,21 +1,8 @@
 import React, { Component } from 'react';
 import './NewShopProduct.css';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Button from '@material-ui/core/Button';
+
 import { Redirect } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import UserDashboardNav from '../UserDashboardNav/UserDashboardNav';
-import ImageUploading from '../ImageUploading/SingleFileUploadComponent';
-import { create } from 'jss';
-import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import { Divide as Hamburger } from 'hamburger-react'
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+
 import CloseIcon from '@material-ui/icons/Close';
 import Config from '../../config/config';
 import axios from 'axios';

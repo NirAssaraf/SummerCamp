@@ -1,21 +1,12 @@
 import React, {Component} from 'react';
-import PoolBack from '../../Images/poolback.jpeg';
 import './UserDashboard.css';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Button from '@material-ui/core/Button';
+
 import {Redirect} from "react-router-dom";
-import Icon from '@material-ui/core/Icon';
-import Navbar from '../Navbar/Navbar1';
+
 import UserDashboardNav from '../UserDashboardNav/UserDashboardNav';
-import Child from '../Child/Child';
 import EventDay from '../NewDayEvent/Event';
 import EventMenu from '../NewFoodMenuEvent/Event';
 
-import { Divide as Hamburger } from 'hamburger-react'
-import { ThemeProvider } from '@material-ui/core';
 import { isAuth } from '../../actions/auth';
 import { format } from 'date-fns';
 

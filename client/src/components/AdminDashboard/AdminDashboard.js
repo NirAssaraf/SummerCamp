@@ -1,23 +1,12 @@
 import React, {Component} from 'react';
-import PoolBack from '../../Images/poolback.jpeg';
 import './AdminDashboard.css';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Button from '@material-ui/core/Button';
 import {Redirect} from "react-router-dom";
-import Icon from '@material-ui/core/Icon';
 import Users from '../Users/Users';
-import Navbar from '../Navbar/Navbar1';
-import Config from '../../config/config';
 import Child from '../Child/Child';
 import UserDashboardNav from '../UserDashboardNav/UserDashboardNav';
-
-import { Divide as Hamburger } from 'hamburger-react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import axios from 'axios';
 import { isAuth } from '../../actions/auth';
 
 export default class AdminDashboard extends Component {

@@ -1,13 +1,6 @@
 import React, {Component} from 'react';
-import PoolBack from '../../Images/poolback.jpeg';
 import './DailyPlan.css';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Button from '@material-ui/core/Button';
 import {Redirect} from "react-router-dom";
-import Icon from '@material-ui/core/Icon';
 import DayEvent from '../DayEvent/DayEvent';
 import UserDashboardNav from '../UserDashboardNav/UserDashboardNav';
 import Config from '../../config/config';

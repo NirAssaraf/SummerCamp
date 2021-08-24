@@ -1,17 +1,13 @@
 import React, {Component} from 'react';
-import PoolBack from '../../Images/poolback.jpeg';
 import './UserDashboardNav.css';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
+
 import Button from '@material-ui/core/Button';
 import {Redirect} from "react-router-dom";
-import Icon from '@material-ui/core/Icon';
+
 import Navbar from '../Navbar/Navbar1';
 import { Divide as Hamburger } from 'hamburger-react'
 import {signout,isAuth} from '../../actions/auth';
-import { useHistory } from 'react-router-dom'; // version 5.2.0
+
 
 export default class UserDashboardNav extends Component {
     constructor(props, context) {
@@ -159,12 +155,7 @@ getMenu() {
       </div>
      </> :''}
       <div className='menu'>
-      {/* <div className='Dashboard-tool'>
-
-      <h1 className='h1-Dashboard'> קייטנת עושים גלים </h1>
-      <h1 className='summer_txt-Dashboard'> חלום של קיץ</h1>
-
-      </div> */}
+      
       </div >
       <p className='user-welcome-dash'>  {this.props.user.name}</p>
 <div id='Dashboard-tool' >

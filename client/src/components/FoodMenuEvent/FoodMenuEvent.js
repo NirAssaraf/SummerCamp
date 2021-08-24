@@ -23,9 +23,7 @@ export default class FoodMenuEvent extends Component {
     constructor(props, context) {
         super(props, context);
        this.state={
-        EventsBreakfast:[],
-        EventsLunch:[],
-        EventsAfternoon:[],  
+     
         toggle:false,   
         add:false,  
 
@@ -39,30 +37,7 @@ this.addToMenu=this.addToMenu.bind(this);
 
 
     }
-    componentDidMount(){
-      let event=this.props.day.foods;
-      let EventsBreakfast=[];
-      let  EventsLunch=[];
-      let EventsAfternoon=[];
-      event.map((item,index)=>{
-        console.log(item)
-        if(item.category.includes('10')){
-          EventsBreakfast.push(item);
-        }
-        if(item.category.includes("20")){
-          EventsLunch.push(item);
-        }
-        if(item.category.includes('30')){
-          EventsAfternoon.push(item);
-        }
-
-      })
-      // EventsAfternoon.filter((a)=>a.category.includes('10')).length
-      this.setState({EventsAfternoon:EventsAfternoon})
-      this.setState({EventsBreakfast:EventsBreakfast})
-      this.setState({EventsLunch:EventsLunch})
-
-    }
+ 
   date=format(new Date(this.props.day.date), 'dd/MM/yy')
   deleteFoodMenu(){
    

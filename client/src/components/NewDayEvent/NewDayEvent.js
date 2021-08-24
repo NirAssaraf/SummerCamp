@@ -7,15 +7,11 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import { Redirect } from "react-router-dom";
 import DatePicker from "react-datepicker";
-import UserDashboardNav from '../UserDashboardNav/UserDashboardNav';
 import Event from './Event';
-import { create } from 'jss';
-import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import TextField from '@material-ui/core/TextField';
+
 import Config from '../../config/config';
 import axios from 'axios';
 import "react-datepicker/dist/react-datepicker.css";

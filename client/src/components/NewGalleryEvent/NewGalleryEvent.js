@@ -1,21 +1,10 @@
 import React, { Component,Fragment } from 'react';
 import './NewGalleryEvent.css';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Button from '@material-ui/core/Button';
+
 import { Redirect } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import ImageUploading from '../ImageUploading/MultiFileUploadComponent';
-import Event from './Event';
-import { create } from 'jss';
-import rtl from 'jss-rtl';
-import { StylesProvider, jssPreset } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import TextField from '@material-ui/core/TextField';
+
 import Config from '../../config/config';
 import axios from 'axios';
 import "react-datepicker/dist/react-datepicker.css";
@@ -65,7 +54,7 @@ export default class NewGalleryEvent extends Component {
    
     }
   }
-  handl
+  
   handleAddEvent(item){
 
     const postData = {
@@ -105,11 +94,8 @@ this.setState({ exit: true });
     item.push( img);
 
    })
-    // use.push(this.state.startTime)
-    console.log(item)
    this.setState({Photos:item})
    this.handleAddEvent(item);
-  //  this.setState({add:!this.state.add});
   this.setState({ exit: true });
 
 
@@ -145,25 +131,12 @@ this.setState({ exit: true });
 
         <h3 className='titel-new-event'><u>הוספת אלבום תמונות</u> </h3>
         <DatePicker disabled={this.state.updateMode} id='date-piker'   dateFormat="dd/MM/yy" selected={this.state.startDate} onChange={(date) => this.setState({startDate: date})} />
-        {/* <button  onClick={this.openNew} className='menu-add-btn'>הוספת תמונה </button> */}
-        {/* {this.state.add?( */}
+        
 <div id='form-event-div-g'>
        <ImageUploading addEvet={this.addEvet} close={this.handleClose}/>
-      {/* <button onClick={this.addEvet} className='event-add-btn'>הוספה</button> */}
       </div>
-      {/* ):''} */}
         <br />
-        {/* <div className='menu-type'>
-        { this.state.Photos.map((item,index)=>{
-          return  <Event key={index} event={item} big={true}/>
-
-        })}
-        </div> */}
-       
-      {/* <div className='btn' >
-        <Button onClick={this.handleAddEvent} id='Gallery-submit-event' >שליחה</Button>
-        <Button onClick={this.handleClose} id='Gallery-submit-event-cancel' >ביטול</Button>
-        </div> */}
+  
       </div>
 
     );

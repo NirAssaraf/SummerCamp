@@ -17,7 +17,7 @@ import axios from 'axios';
 import ShopCartProduct from './ShopCartProduct';
 import { format } from 'date-fns';
 import UserDashboardNav from '../UserDashboardNav/UserDashboardNav';
-import PaymentForm from '../PaymentForm/Forms/PaymentForm';
+import PaymentForm from '../PaymentForm/PaymentForm';
 import { isAuth } from '../../actions/auth';
 
 

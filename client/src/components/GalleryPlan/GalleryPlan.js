@@ -1,18 +1,8 @@
 import React, {Component} from 'react';
-import PoolBack from '../../Images/poolback.jpeg';
 import './GalleryPlan.css';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Button from '@material-ui/core/Button';
 import {Redirect} from "react-router-dom";
-import Icon from '@material-ui/core/Icon';
 import GalleryEvent from '../GalleryEvent/GalleryEvent';
 import UserDashboardNav from '../UserDashboardNav/UserDashboardNav';
-import Config from '../../config/config';
-import axios from 'axios';
-import { Divide as Hamburger } from 'hamburger-react'
 import { isAuth } from '../../actions/auth';
 import { format } from 'date-fns';
 import DatePicker from "react-datepicker";
@@ -20,7 +10,6 @@ export default class GalleryPlan extends Component {
     constructor(props, context) {
         super(props, context);
        this.state={
-        GalleryPlan:[],
         newGalleryDay:false,
         startDate:'',
         showMenu:true,

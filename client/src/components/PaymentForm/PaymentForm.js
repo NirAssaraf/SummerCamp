@@ -240,4 +240,3 @@ if(r)
 }
 
 export default PaymentForm;
-
